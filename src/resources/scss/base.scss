@@ -1,0 +1,39 @@
+@import 'variables';
+
+html{
+    font-size: 62.5%;
+    line-height: 1.6rem;
+    scroll-behavior: smooth;
+    font-family: Arial, Helvetica, sans-serif;
+    box-sizing: border-box;
+}
+
+.btn {
+    font-size: 1.4rem;
+}
+
+.modal{
+    background-color: rgba(0, 0, 0, 0.7);
+    font-size: 1.4rem;
+}
+.modal-title{
+    font-size: 2.2rem;
+    font-weight: 600;
+    padding-left: 1rem;
+}
+.modal-body{
+    padding : 3rem;
+}
+.modal-header{
+    background-color: var(--primary-color);
+}
+
+
+input {
+    font-size: 1.4rem !important;
+}
+
+.active{
+    display: block !important;
+}
+

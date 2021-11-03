@@ -1,0 +1,253 @@
+@import 'variables';
+
+/* HEADER */
+.header__navbar{
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 0;
+    background-color: #bcd0e0 !important;
+    z-index: 10;
+}
+
+.navbar-brand {
+    display: flex;
+    align-items: center;
+}
+
+.navbar-brand__name{
+    font-weight: 600;
+    font-size: 2.2rem;
+}
+
+.navbar-brand__logo{
+    height: 40px;
+}
+
+.nav-item {
+    margin: 0 8px;
+    font-size: 1.6rem;
+}
+
+.nav-item {
+    margin: 0 8px;
+    font-size: 1.6rem;
+}
+
+.dropdown-menu[data-bs-popper]{
+    left: unset;
+    right: 0;
+}
+
+.user_drop-down-avatar{
+    height: 32px;
+    width: 32px;
+    border-radius: 50%;
+}
+
+.user__drop-down-item{
+    padding: 8px 36px 8px 12px;
+}
+/* BODY */
+
+#main-body{
+    margin-top: 80px;
+}
+
+/* SLIDER */
+#slider{
+    border-radius: 20px;
+    overflow: hidden;
+}
+
+.carousel-inner{
+    width: 100%;
+}
+
+.carousel-item div{
+    display: block;
+    height: 300px;
+    width: 100%;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center center;
+}
+
+/* CONTENT */
+#content{
+    display: flex;
+    justify-content: center;
+    width: 80%;
+}
+
+
+/* COURSE LIST */
+.courses-list{
+    width: 100%;
+}
+
+.course-list__title{
+    text-align: center;
+    background-color: var(--primary-color);
+    padding: 8px 0;
+    border-radius: 4px;
+}
+
+.course-item{
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+.course-item__body{
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+}
+
+.course-item__description{
+    font-size: 1.2rem;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 3;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    font-weight: 400;
+}
+
+.course-item__button{
+    margin-top: 8px;
+}
+
+#course-list__filter{
+    width: 100%;
+    text-align: left;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.course-list__dropdown-list{
+    width: 100%;
+}
+
+.dropdown-item{
+    font-size: 1.4rem;
+}
+
+/* MODAL DETAIL COURSE */
+.modal__course-detail-dialog{
+    max-width: 800px;
+}
+
+.course-detail__body{
+    display: flex;
+}
+
+.detail__main {
+    margin-right: 24px;
+}
+
+.main__img{
+    width: 100%;
+}
+
+.main__title{
+    font-weight: 600;
+    font-size: 2.4rem;
+}
+
+.main__type{
+    display: flex;
+}
+
+.main__type-item{
+    margin-right: 4px;
+    cursor: pointer;
+    text-decoration: none;
+    color: var(--text-hightlight-color);
+    font-weight: 500;
+}
+
+.main__type-item:hover{
+    color: var(--text-hightlight-color);
+}
+
+.main__description{
+    margin: 8px 0;
+    text-align: justify;
+}
+
+.main__level{
+    font-style: italic;
+    color: var(--text-hightlight-color);
+    font-weight: 500;
+}
+
+.main__time{
+    margin: 8px 0 0 0;
+}
+
+.detail__sub{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%;
+}
+
+.sub__author{
+    display: flex;
+    flex-direction: column;
+    min-height: 144px;
+}
+
+.author{
+    font-size: 2.4rem;
+    font-weight: 600;
+    color: var(--text-hightlight-color);
+    text-decoration: none;
+    min-height: auto;
+}
+
+.author:hover{
+    color: var(--text-hightlight-color);
+}
+
+.sub__lesson-list{
+    overflow-y: auto;
+    overflow-x: auto;
+    height: 280px;
+}
+
+.lesson-title{
+    font-size: 1.8rem;
+    padding: 0 0 8px 0;
+}
+
+.lesson-item{
+    display: flex;
+    width: 100%;
+    padding: 8px 0;
+}
+
+.lesson-serial{
+    margin-right: 12px;
+}
+
+.lesson-name{
+    flex: 1;
+    white-space: nowrap;
+}
+
+// SIGN UP FORM 
+
+#date{
+    display: flex;
+    justify-content: space-between;
+}
+
+.date__field{
+    width: 30%;
+}
+
+
+

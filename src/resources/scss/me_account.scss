@@ -1,0 +1,82 @@
+/* BODY */
+#main-body{
+    margin-top: 80px;
+}
+
+#customize{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.customize__title{
+    padding-bottom: 12px;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.customize__body{
+    padding : 0 124px;
+    display: flex;
+    flex-direction: column;
+}
+
+.input-label{
+    margin-bottom: 16px;
+}
+
+.customize__edit{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.customize__input-text{
+    border: none;
+    border-bottom: 1px solid var(--border-color);
+    width: 100%;
+    outline: none;
+    font-size: 1.8rem;
+}
+
+.customize__input-text-sm{
+    border: none;
+    border-bottom: 1px solid var(--border-color);
+    width: 25%;
+    outline: none;
+    font-size: 1.8rem;
+}
+
+.customize__input-file{
+    display: flex;
+    justify-content: space-between;
+}
+
+.customize__edit-btn{
+    border-radius: 20px;
+    padding: 8px 24px;
+    margin: 24px auto;
+}
+
+.customize__edit-DOB{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.customize__edit-img{
+    border: none;
+    width: 100%;
+    outline: none;
+    font-size: 1.8rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.uploaded-img{
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+}
