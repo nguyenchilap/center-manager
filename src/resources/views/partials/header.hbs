@@ -13,8 +13,12 @@
                 <div class="collapse navbar-collapse" id="navbarNavDarkDropdown">
                     <ul class="navbar-nav">
                         <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDarkDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            <img class="user_drop-down-avatar" src="https://scontent.fdad3-5.fna.fbcdn.net/v/t1.6435-9/242492738_115452684205599_6130258319888075774_n.jpg?_nc_cat=106&ccb=1-5&_nc_sid=a4a2d7&_nc_ohc=Btxw4rzT5CAAX8fsVeZ&_nc_ht=scontent.fdad3-5.fna&oh=9c2e7fba6f067160fbeacb5eb52bc7c9&oe=61A0F0F1" alt="avt-img">
+                        <a class="nav-link dropdown-toggle navbar-user__wrapper" href="#" id="navbarDarkDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            {{#if (isNone userInfo.img)}}
+                                <img class="user_drop-down-avatar" src="/img/users/default-avatar.jpg" alt="avatar-img">
+                            {{else}}
+                                <img class="user_drop-down-avatar" src="/img/users/{{user._id}}/{{userInfo.img}} " alt="avatar-img">  
+                            {{/if}}
                             {{userInfo.name}}
                         </a>
                         <ul class="dropdown-menu dropdown-menu-dark user__drop-down" aria-labelledby="navbarDarkDropdownMenuLink">

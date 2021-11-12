@@ -7,11 +7,12 @@ function route(app){
     app.use('/account', accountRouter);
     app.use('/me', meRouter);
 
-    app.use('/', siteRouter);
     app.post('/logout', function(req, res){
         req.logout();
         res.redirect('/');
     });
+    app.use('/', siteRouter);
+    
 }
 
 

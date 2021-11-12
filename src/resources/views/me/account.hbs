@@ -1,47 +1,71 @@
 <div id="main-body" class="container">
         <div class="container" id="customize">
-            <h1 class="customize__title">
-                Cài đặt tài khoản
-            </h1>
+            <div class="customize__title">
+                <h1 class="customize__title-text">
+                    Cài đặt tài khoản
+                </h1>
+                <form class="customize__avatar" enctype="multipart/form-data" method="POST" action="/me/account/edit-avatar">
+                    <div class="customize__edit-img">
+                        {{#if (isNone userInfo.img)}}
+                                <img class="uploaded-img" src="/img/users/default-avatar.jpg" alt="avatar-img">
+                        {{else}}
+                                <img class="uploaded-img" src="/img/users/{{user._id}}/{{userInfo.img}}" alt="avatar-img">
+                        {{/if}}
+                        <img src="/img/users/camera.png" alt="camera-img" class="customize__avatar-icon">
+                    </div>
+                    <input type="file" accept="image/*" name="img" class="customize__input-file">
+                    <button type="submit" class="btn btn-outline-dark customize__input-file-confirm">Save</button>
+                </form>
+            </div>
 
-            <form class="customize__body mt-5" method="POST" action="/me/account/?_method=PUT">
-                <div class="customize__name mt-5">
+            <form class="customize__body" method="POST" action="/me/account/edit?_method=PUT">
+                <div class="customize__name">
                     <h3 class="input-label">Họ tên</h3>
                     <div class="customize__edit">
-                        <input type="text" name="name" class="customize__input-text" minlength="50px" maxlength="70px" value="{{userInfo.name}}" placeholder="Nhập tên của bạn">
+                        <input type="text" name="name" class="customize__input-text" maxlength="70px" value="{{userInfo.name}}" placeholder="Nhập tên của bạn">
                     </div>
                 </div>
                 <div class="customize__email mt-5">
-                  <h3 class="input-label">Email</h3>
-                  <div class="customize__edit">
-                      <input type="text" name="email" class="customize__input-text" minlength="50px" maxlength="70px" value="{{userInfo.email}}" placeholder="Nhập email của bạn">
-                  </div>
+                    <h3 class="input-label">Email</h3>
+                    <div class="customize__edit">
+                        <input type="text" name="email" class="customize__input-text" maxlength="70px" value="{{userInfo.email}}" placeholder="Nhập email của bạn">
+                    </div>
                 </div>
                 <div class="customize__phone-number mt-5">
-                <h3 class="input-label">Số điện thoại</h3>
-                <div class="customize__edit">
-                    <input type="text" name="phone" class="customize__input-text" minlength="50px" maxlength="70px" value="{{userInfo.phone}}" placeholder="Nhập số điện thoại của bạn">
+                    <h3 class="input-label">Số điện thoại</h3>
+                    <div class="customize__edit">
+                        <input type="text" name="phone" class="customize__input-text" maxlength="70px" value="{{userInfo.phone}}" placeholder="Nhập số điện thoại của bạn">
+                    </div>
                 </div>
                 <div class="customize__date-of-birth mt-5">
-                  <h3 class="input-label">Ngày sinh</h3>
-                  <div class="customize__edit">
-                      <div class="customize__edit-DOB">
-                        <input type="text" name="DOB-day" class="customize__input-text-sm" minlength="20px" maxlength="30px" placeholder="DD">
-                        <input type="text" name="DOB-month" class="customize__input-text-sm" minlength="20px" maxlength="30px" placeholder="MM">
-                        <input type="text" name="DOB-year" class="customize__input-text-sm" minlength="20px" maxlength="30px" placeholder="YYYY">
-                      </div>
-                  </div>
-                </div>
-                <div class="customize__img mt-5">
-                  <h3 class="input-label">Avatar</h3>
-                  <div class="customize__edit">
-                      <div class="customize__edit-img">
-                          <input type="file" name="img" class="customize__input-file" minlength="50px" maxlength="70px">
-                          <img class="uploaded-img" src="https://scontent.fdad3-5.fna.fbcdn.net/v/t1.6435-9/242492738_115452684205599_6130258319888075774_n.jpg?_nc_cat=106&ccb=1-5&_nc_sid=a4a2d7&_nc_ohc=Btxw4rzT5CAAX8fsVeZ&_nc_ht=scontent.fdad3-5.fna&oh=9c2e7fba6f067160fbeacb5eb52bc7c9&oe=61A0F0F1" alt="avatar-img">
-                      </div>
-                  </div>
-                </div>
+                    <h3 class="input-label">Ngày sinh</h3>
+                    <div class="customize__edit">
+                        <div class="customize__edit-DOB">
+                            <input type="text" name="DOB-day" class="customize__input-text-sm" maxlength="2px" value="{{userBirth.day}}" placeholder="DD">
+                            <input type="text" name="DOB-month" class="customize__input-text-sm" maxlength="2px" value="{{userBirth.month}}" placeholder="MM">
+                            <input type="text" name="DOB-year" class="customize__input-text-sm" maxlength="4px" value="{{userBirth.year}}" placeholder="YYYY">
+                        </div>
+                    </div>
                 </div>
                 <button type="submit" class="btn btn-outline-dark customize__edit-btn">Confirm Edit</button>
             </form>
         </div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function(){
+        const inputImage = document.querySelector('.customize__input-file');
+        const uploadedImage = document.querySelector('.uploaded-img');
+        const btnUploadImage = document.querySelector('.customize__edit-img');
+        const btnSaveUploadImage = document.querySelector('.customize__input-file-confirm');
+
+        btnUploadImage.onclick = () => {
+            inputImage.click();
+        }
+
+        inputImage.onchange = (e) => {
+            uploadedImage.src = URL.createObjectURL(event.target.files[0]);
+            btnSaveUploadImage.style.display = 'block';
+        }
+    })
+</script>

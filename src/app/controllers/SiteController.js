@@ -1,23 +1,18 @@
 const Student = require('../models/Student');
 const {mongooseToObject} = require('../../utils/mongoose');
 
+const {getUser} = require('../../utils/getUser');
+
 class SiteController{
 
     // [GET] /
     index(req, res, next){
-        res.render('home');
+        getUser('home', req, res, next);
     }
 
     // [POST] /
     login(req, res, next){
-        Student.findOne({account: req.user})
-        .then(student => {
-            res.render('home', {
-                user: req.user,
-                userInfo: mongooseToObject(student),
-            });
-        })
-        
+        getUser('home', req, res, next);
     }
 }
 
