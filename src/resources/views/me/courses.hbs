@@ -1,0 +1,192 @@
+<div id="main-body" class="container">
+        <div id="slider" class="carousel slide" data-bs-ride="carousel">
+            <div class="carousel-indicators">
+              <button type="button" data-bs-target="#slider" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+              <button type="button" data-bs-target="#slider" data-bs-slide-to="1" aria-label="Slide 2"></button>
+              <button type="button" data-bs-target="#slider" data-bs-slide-to="2" aria-label="Slide 3"></button>
+            </div>
+            <div class="carousel-inner">
+              <div class="carousel-item active">
+                <div style="background-image: url(https://w0.peakpx.com/wallpaper/590/75/HD-wallpaper-anime-original-classroom.jpg);"  
+                    class="d-block w-100"> </div>
+              </div>
+              <div class="carousel-item">
+                <div style="background-image: url(https://i.pinimg.com/originals/be/96/a1/be96a12fe9f5fd8eaae8518455b4b6a3.png);"  
+                    class="d-block w-100"> </div>
+              </div>
+              <div class="carousel-item">
+                <div style="background-image: url(https://w0.peakpx.com/wallpaper/279/674/HD-wallpaper-anime-room-classroom.jpg);"  
+                    class="d-block w-100"> </div>
+              </div>
+            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#slider" data-bs-slide="prev">
+              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+              <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#slider" data-bs-slide="next">
+              <span class="carousel-control-next-icon" aria-hidden="true"></span>
+              <span class="visually-hidden">Next</span>
+            </button>
+        </div>
+          
+        <div id="my-courses__content" class="mt-4 container-fluid">
+            <div class="my-courses-list">
+                <div class="course-list__header">
+                  <h1 class="my-course-list__title mt-5">KHÓA HỌC CỦA TÔI</h1>
+                  
+                  <div class="row">
+                    <div class="col-8">
+                      <form class="d-flex my-course-list__search">
+                        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                        <button class="btn btn-outline-success" type="submit">Search</button>
+                      </form>
+                    </div>
+                    <div class="col-4">
+                      <div class="dropdown">
+                        <button class="btn btn-secondary dropdown-toggle" type="button" id="my-course-list__filter" data-bs-toggle="dropdown" aria-expanded="false">
+                          Dropdown button
+                        </button>
+                        <ul class="dropdown-menu dropdown-menu-dark course-list__dropdown-list" aria-labelledby="my-course-list__filter">
+                          <li><a class="dropdown-item active" href="#">Action</a></li>
+                          <li><a class="dropdown-item" href="#">Another action</a></li>
+                          <li><a class="dropdown-item" href="#">Something else here</a></li>
+                          <li><a class="dropdown-item" href="#">Separated link</a></li>
+                        </ul>
+                      </div>
+                    </div>
+                    
+                  </div>
+                </div>
+
+                <div class="row my-course-list__body">
+                  <div class="col-4 mt-5">
+                    <div class="my-course-item card">
+                        <img src="http://i3.ytimg.com/vi/MGhw6XliFgo/maxresdefault.jpg" class="card-img-top my-course-item__img" alt="course-img">
+                        <div class="card-body course-item__body">
+                          <h3 class="card-title course-item__title">Khóa JavaScript Nâng cao</h3>
+                          <div class="my-course-item__author">Sơn Đặng</div>
+                          <div class="my-course-item__process">
+                              <div class="process-studying process-item">Đang học</div>
+                              <div class="process-complete process-item process--active">Đã hoàn thành</div>
+                          </div>
+                          <div class="my-course-item__button ms-auto ">
+                            <button class="btn btn-primary btn-dark my-course-item__button-view">Details</button>
+                          </div>
+                        </div>
+                    </div>
+                  </div>
+                  
+                  
+                </div>
+            </div>
+            
+        </div>
+    </div>
+
+
+    <div class="modal modal__course-detail" tabindex="-1">
+      <div class="modal-dialog modal__course-detail-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <span class="modal-title modal__course-detail-title">Tiến trình khóa học</span>
+            <button type="button" class="btn-close btn-close-modal me-1" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <div class="course-detail__title">
+              <h1 class="course-detail__title-text">Khóa JavaScript Nâng cao</h1>
+              <h1 class="course-detail__title-complete active">Đã hoàn thành</h1>
+              <h1 class="course-detail__title-studying">Đang học</h1>
+            </div>
+            <h4 class="course-detail__author mt-2">Sơn Đặng</h4>
+            <div class="course-detail__lesson-list mt-4">
+                <div class="lesson-item">
+                  <div class="lesson-item__serial">1</div>
+                  <div class="lesson-item__name">Giới thiệu</div>
+                  <div class="lesson-item__complete complete--active">
+                    <i class="fas fa-check"></i>
+                  </div>
+                </div>
+                <div class="lesson-item">
+                  <div class="lesson-item__serial">2</div>
+                  <div class="lesson-item__name">IIFE là gì?</div>
+                  <div class="lesson-item__complete complete--active">
+                    <i class="fas fa-check"></i>
+                  </div>
+                </div>
+                <div class="lesson-item">
+                  <div class="lesson-item__serial">3</div>
+                  <div class="lesson-item__name">Scope là gì?</div>
+                  <div class="lesson-item__complete complete--active">
+                    <i class="fas fa-check"></i>
+                  </div>
+                </div>
+                <div class="lesson-item">
+                  <div class="lesson-item__serial">4</div>
+                  <div class="lesson-item__name">Khái niệm Closure?</div>
+                  <div class="lesson-item__complete complete--active">
+                    <i class="fas fa-check"></i>
+                  </div>
+                </div>
+                <div class="lesson-item">
+                  <div class="lesson-item__serial">5</div>
+                  <div class="lesson-item__name">Hoisting là gì?</div>
+                  <div class="lesson-item__complete complete--active">
+                    <i class="fas fa-check"></i>
+                  </div>
+                </div>
+                <div class="lesson-item">
+                  <div class="lesson-item__serial">6</div>
+                  <div class="lesson-item__name">Strict mode?</div>
+                  <div class="lesson-item__complete complete--active">
+                    <i class="fas fa-check"></i>
+                  </div>
+                </div>
+                <div class="lesson-item">
+                  <div class="lesson-item__serial">7</div>
+                  <div class="lesson-item__name">Value types & Reference types?</div>
+                  <div class="lesson-item__complete complete--active">
+                    <i class="fas fa-check"></i>
+                  </div>
+                </div>
+                <div class="lesson-item">
+                  <div class="lesson-item__serial">7</div>
+                  <div class="lesson-item__name">Value types & Reference types?</div>
+                  <div class="lesson-item__complete complete--active">
+                    <i class="fas fa-check"></i>
+                  </div>
+                </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <div class="course-result__title">Kết quả:</div>
+            <div class="course-result__grade">10.0</div>
+          </div>
+        </div>
+      </div>
+=</div>
+
+
+<script>
+        btnCloseModal = document.querySelectorAll('.btn-close-modal');
+        btnViewDetails = document.querySelectorAll('.my-course-item__button-view');
+
+
+        modalCourseDetails = document.querySelector('.modal__course-detail');
+        modalSignIn = document.querySelector('.modal__sign-in');
+        modalSignUp = document.querySelector('.modal__sign-up');
+
+        //close modal 
+        btnCloseModal.forEach(element => {
+          element.onclick = () => {
+            modalCourseDetails.style.display = 'none';
+          }
+        });
+
+        //View Course Details : 
+        btnViewDetails.forEach(element => {
+          element.onclick = () => {
+            modalCourseDetails.style.display = 'block';
+          }
+        })
+
+</script>

@@ -35,8 +35,8 @@ html {
 .modal-header {
   background-color: var(--primary-color); }
 
+.modal.active {
+  display: block; }
+
 input {
   font-size: 1.4rem !important; }
-
-.active {
-  display: block !important; }

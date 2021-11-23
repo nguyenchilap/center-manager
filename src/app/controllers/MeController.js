@@ -3,6 +3,7 @@ const fs = require('fs-extra');
 
 const Student = require('../models/Student');
 const {mongooseToObject} = require('../../utils/mongoose');
+const {getUser} = require('../../utils/getUser');
 const ObjectId = require('mongoose').Types.ObjectId; 
 
 class MeController{
@@ -48,16 +49,21 @@ class MeController{
 
     // [POST] /me/account/edit-avatar
     uploadImg(req, res, next){
-        const formData = req.body;
+        const fileData = req.file;
         const user = req.user;
 
-        Student.findOne({account: ObjectId(user._id)})
+        Student.findOne({account: req.user})
         .then(student => {
-            Student.updateOne({ _id: student._id }, {img: formData.img})
+            Student.updateOne({ _id: student._id }, {img: fileData.originalname})
             .then(() => res.redirect('back'))
             .catch(next);
         })
         .catch(next);
+    }
+
+    // [GET] /me/courses
+    showMyCourses(req, res, next){
+        getUser('me/courses', req, res, next);
     }
 }
 

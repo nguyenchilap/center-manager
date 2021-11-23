@@ -63,7 +63,7 @@
             inputImage.click();
         }
 
-        inputImage.onchange = (e) => {
+        inputImage.onchange = (event) => {
             uploadedImage.src = URL.createObjectURL(event.target.files[0]);
             btnSaveUploadImage.style.display = 'block';
         }
