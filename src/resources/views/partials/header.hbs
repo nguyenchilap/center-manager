@@ -17,7 +17,7 @@
                             {{#if (isNone userInfo.img)}}
                                 <img class="user_drop-down-avatar" src="/img/users/default-avatar.jpg" alt="avatar-img">
                             {{else}}
-                                <img class="user_drop-down-avatar" src="/img/users/{{user._id}}/{{userInfo.img}} " alt="avatar-img">  
+                                <img class="user_drop-down-avatar" src="{{userInfo.img}} " alt="avatar-img">  
                             {{/if}}
                             {{userInfo.name}}
                         </a>
@@ -45,3 +45,11 @@
         </div>
     </div>
 </nav>
+
+<script>
+    const userDropdown = document.querySelector('.user__drop-down');
+    $('.navbar-user__wrapper').click(function(){
+        if(userDropdown.style.display === 'block') userDropdown.style.display = 'none';
+        else userDropdown.style.display = 'block';
+    })
+</script>

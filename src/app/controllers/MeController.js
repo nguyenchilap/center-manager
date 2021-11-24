@@ -6,6 +6,8 @@ const {mongooseToObject} = require('../../utils/mongoose');
 const {getUser} = require('../../utils/getUser');
 const ObjectId = require('mongoose').Types.ObjectId; 
 
+const {uploadStudentImage} = require('../../config/firebase');
+
 class MeController{
 
     // [GET] /me/account
@@ -50,11 +52,12 @@ class MeController{
     // [POST] /me/account/edit-avatar
     uploadImg(req, res, next){
         const fileData = req.file;
-        const user = req.user;
-
-        Student.findOne({account: req.user})
-        .then(student => {
-            Student.updateOne({ _id: student._id }, {img: fileData.originalname})
+        async function getUrlImg(){
+            return await uploadStudentImage(`src/public/img/users/${req.user._id}/${fileData.originalname}`, fileData.originalname, req.user._id);
+        }
+        Promise.all([Student.findOne({account: req.user}),getUrlImg()])
+        .then(([student, url]) => {
+            Student.updateOne({ _id: student._id }, {img: url})
             .then(() => res.redirect('back'))
             .catch(next);
         })

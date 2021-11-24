@@ -9,7 +9,7 @@
                         {{#if (isNone userInfo.img)}}
                                 <img class="uploaded-img" src="/img/users/default-avatar.jpg" alt="avatar-img">
                         {{else}}
-                                <img class="uploaded-img" src="/img/users/{{user._id}}/{{userInfo.img}}" alt="avatar-img">
+                                <img class="uploaded-img" src="{{userInfo.img}}" alt="avatar-img">
                         {{/if}}
                         <img src="/img/users/camera.png" alt="camera-img" class="customize__avatar-icon">
                     </div>
@@ -67,5 +67,6 @@
             uploadedImage.src = URL.createObjectURL(event.target.files[0]);
             btnSaveUploadImage.style.display = 'block';
         }
+
     })
 </script>
