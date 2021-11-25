@@ -16,7 +16,7 @@ const flash = require('connect-flash');
 db.connect();
 
 const app = express();
-//const port = 3000;
+const port = 3000;
 
 app.use(
   express.urlencoded({
