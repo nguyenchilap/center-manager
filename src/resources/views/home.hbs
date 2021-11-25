@@ -34,23 +34,38 @@
                 <div class="course-list__header">
                   <h1 class="course-list__title mt-5">DANH SÁCH KHÓA HỌC</h1>
                   
-                  <div class="row">
-                    <div class="col-8">
-                      <form class="d-flex course-list__search">
-                        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                        <button class="btn btn-outline-success" type="submit">Search</button>
-                      </form>
+                  <div class="row mt-4">
+                    <div class="col-6">
+                      <div class="d-flex course-list__search">
+                        <input class="form-control" type="search" placeholder="Nhập tên khóa học...." aria-label="Search">
+                      </div>
                     </div>
-                    <div class="col-4">
-                      <div class="dropdown">
+                    <div class="col-3">
+                      <div class="dropdown course-filter-type">
                         <button class="btn btn-secondary dropdown-toggle" type="button" id="course-list__filter" data-bs-toggle="dropdown" aria-expanded="false">
-                          Dropdown button
+                            Loại khóa học
+                        </button>
+                        <ul class="dropdown-menu dropdown-menu-dark course-list__dropdown-list" aria-labelledby="course-list__filter">           
+                          {{#each coursetypes}}
+                          <li><div class="dropdown-item course-filter-type-item">{{this.name}}</div></li>
+                          {{/each}}
+                          <li><hr class="dropdown-divider"></li>
+                          <li><div class="dropdown-item course-filter-type-item active">Tất cả</div></li>
+                        </ul>
+                      </div>
+                    </div>
+                    
+                    <div class="col-3">
+                      <div class="dropdown course-filter-level">
+                        <button class="btn btn-secondary dropdown-toggle" type="button" id="course-list__filter" data-bs-toggle="dropdown" aria-expanded="false">
+                            Trình độ
                         </button>
                         <ul class="dropdown-menu dropdown-menu-dark course-list__dropdown-list" aria-labelledby="course-list__filter">
-                          <li><a class="dropdown-item active" href="#">Action</a></li>
-                          <li><a class="dropdown-item" href="#">Another action</a></li>
-                          <li><a class="dropdown-item" href="#">Something else here</a></li>
-                          <li><a class="dropdown-item" href="#">Separated link</a></li>
+                          <li><div class="dropdown-item course-filter-level-item">Cơ bản</div></li>
+                          <li><div class="dropdown-item course-filter-level-item">Trung bình</div></li>
+                          <li><div class="dropdown-item course-filter-level-item">Nâng cao</div></li>
+                          <li><hr class="dropdown-divider"></li>
+                          <li><div class="dropdown-item course-filter-level-item active">Tất cả</div></li>
                         </ul>
                       </div>
                     </div>
@@ -60,9 +75,12 @@
 
                 <div class="row course-list__body">
                   {{#each courses}}
-                  <div class="course-item-wrapper col-4 mt-5" courseId="{{this._id}}">
-                    <div class="course-item card">
-                        <img src="img/courses/{{this.img}}" class="card-img-top course-item__img" alt="course-img">
+                  <div class="course-item-wrapper col-4" courseId="{{this._id}}" 
+                                                        courseName="{{this.name}}"  
+                                                        courseLevel="{{this.level}}" 
+                                                        courseType="{{#each this.courseTypes as |type|}}{{#if type}}{{type}} {{/if}}{{/each}}">
+                    <div class="course-item card mt-5">
+                        <img src="{{this.img}}" class="card-img-top course-item__img" alt="course-img">
                         <div class="card-body course-item__body">
                           <h3 class="card-title course-item__title">{{this.name}}</h3>
                           <p class="card-text course-item__description">{{this.description}}</p>
@@ -75,8 +93,14 @@
                   </div>
                   {{/each}}
                 </div>
+
+                <div class="row course-list__pagination mt-5 pt-5" max-page="{{div courses.length maxItemPerPage}}" max-item-per-page="{{maxItemPerPage}}">
+                    <nav aria-label="Page navigation example">
+                      <ul class="pagination justify-content-center">
+                      </ul>
+                    </nav>
+                </div>
             </div>
-            
         </div>
     </div>
 
@@ -167,7 +191,7 @@
             <div class="row course-detail__body">
               <div class="col-8">
                 <div class="detail__main">
-                  <div class="main__img" style="background-image: url('img/courses/{{this.img}}');"></div>
+                  <div class="main__img" style="background-image: url('{{this.img}}');"></div>
                   <div class="main__title">{{this.name}}</div>
                   <div class="main__type">
                       {{#each this.courseTypes as |type|}}
@@ -214,6 +238,5 @@
     </div>
     {{/each}}
 
-<script src="/js/home.js">
-
-</script>
+<script src="/js/home.js"></script>
+<script src="/js/pagination.js"></script>

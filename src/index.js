@@ -43,7 +43,6 @@ app.use(passport.session());
 
 //Add static folder
 app.use(express.static(path.join(__dirname, 'public')));
-app.use(express.static(path.join('D:/Hoc web/f8_learn/NodeJs/center-management-admin/src', 'public')));
 
 //HTTP logger
 app.use(morgan('combined'));
@@ -52,12 +51,10 @@ app.use(morgan('combined'));
 app.engine('hbs', 
   handlebars({
     extname: '.hbs',
-    helpers: {
-        sum: (a, b) => a + b,
-        isNone: param => param === 'none', 
-        modifyDate: param => `${param.getDate()}/${param.getMonth() + 1}/${param.getYear()-100+2000}`
-    },
+    helpers: require('./config/handlebars'),
 }));
+
+
 app.set('view engine', 'hbs');
 app.set('views', path.join(__dirname, '/resources/views'));
 

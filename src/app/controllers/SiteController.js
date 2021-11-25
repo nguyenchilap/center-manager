@@ -1,5 +1,6 @@
 const Student = require('../models/Student');
 const Course = require('../models/Course');
+const CourseType = require('../models/CourseType');
 const {mongooseToObject, multiMongooseToObject} = require('../../utils/mongoose');
 
 const {getUser} = require('../../utils/getUser');
@@ -9,12 +10,14 @@ class SiteController{
 
     // [GET] /
     index(req, res, next){
-        Promise.all([Course.find({}), Student.findOne({account: req.user})])
-        .then(([courses, student]) => {
+        Promise.all([Course.find(), CourseType.find(), Student.findOne({account: req.user})])
+        .then(([courses, coursetypes, student]) => {
             res.render('home', {
                 user: req.user,
                 userInfo: mongooseToObject(student),
-                courses: multiMongooseToObject(courses)
+                courses: multiMongooseToObject(courses),
+                coursetypes: multiMongooseToObject(coursetypes),
+                maxItemPerPage: 6,
             });
         })
         .catch(next);

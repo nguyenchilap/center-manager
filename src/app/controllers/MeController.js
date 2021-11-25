@@ -4,9 +4,10 @@ const fs = require('fs-extra');
 const Student = require('../models/Student');
 const {mongooseToObject} = require('../../utils/mongoose');
 const {getUser} = require('../../utils/getUser');
+const {uploadStudentImage} = require('../../config/firebase');
 const ObjectId = require('mongoose').Types.ObjectId; 
 
-const {uploadStudentImage} = require('../../config/firebase');
+
 
 class MeController{
 
