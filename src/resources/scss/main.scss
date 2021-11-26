@@ -113,10 +113,15 @@
 .course-item{
     border-radius: 5px;
     overflow: hidden;
+    min-height: 370px;
 }
 
 .course-item__img{
     height: 240px;
+    background-color: rgb(209, 209, 209);
+    background-position: center center;
+    background-size: 100%;
+    background-repeat: no-repeat;
 }
 
 .course-item__body{

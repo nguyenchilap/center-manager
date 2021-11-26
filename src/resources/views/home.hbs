@@ -80,7 +80,7 @@
                                                         courseLevel="{{this.level}}" 
                                                         courseType="{{#each this.courseTypes as |type|}}{{#if type}}{{type}} {{/if}}{{/each}}">
                     <div class="course-item card mt-5">
-                        <img src="{{this.img}}" class="card-img-top course-item__img" alt="course-img">
+                        <div style="background-image: url({{this.img}});" class="card-img-top course-item__img" alt="course-img"></div>
                         <div class="card-body course-item__body">
                           <h3 class="card-title course-item__title">{{this.name}}</h3>
                           <p class="card-text course-item__description">{{this.description}}</p>

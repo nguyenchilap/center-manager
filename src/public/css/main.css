@@ -103,10 +103,15 @@
 
 .course-item {
   border-radius: 5px;
-  overflow: hidden; }
+  overflow: hidden;
+  min-height: 370px; }
 
 .course-item__img {
-  height: 240px; }
+  height: 240px;
+  background-color: #d1d1d1;
+  background-position: center center;
+  background-size: 100%;
+  background-repeat: no-repeat; }
 
 .course-item__body {
   display: flex;
