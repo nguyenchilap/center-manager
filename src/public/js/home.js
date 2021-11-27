@@ -30,12 +30,6 @@ document.addEventListener('DOMContentLoaded', function(){
         $(this).closest('.modal').removeClass('active');
     });
 
-    //View Course Details : 
-    $('.course-item__button-view').click(function(){
-        const courseId = $(this).closest('.course-item-wrapper').attr('courseId');
-        $(`.modal__course-detail-${courseId}`).addClass('active');
-    })
-
     //Sign-up submit clicked
     $('.modal__sign-up-btn-submit').click(function(){
         if (inputPassword.value != inputConfirmPassword.value){

@@ -1,0 +1,117 @@
+<div id="main-body" class="container">
+    <div class="row panel">
+        <div class="col-5">
+            <div class="course-info">
+                <div class="course-info__component course-info__image" style="background-image: url({{course.img}});"></div>
+                <div class="course-info__component course-info__name">{{course.name}}</div>
+                <div class="course-info__component course-info__type">
+                    {{#each course.courseTypes}}
+                    {{#if this}}
+                    <div class="course-info__component course-info__type-item">#{{this}}</div>
+                    {{/if}}
+                    {{/each}}
+                </div>
+                <div class="course-info__component course-info__date">Ngày: {{modifyDate course.createdAt}}</div>
+                <div class="course-info__component course-info__description">Nội dung khóa học: {{course.description}}</div>
+                <div class="course-info__component course-info__lessons">
+                    {{!-- <div class="course-info__component course-info__lessons-title">Danh sách các bài học:</div> --}}
+                    <table class="table table-dark table-striped table-hover">
+                        <thead>
+                            <tr>
+                                <th>STT</th>
+                                <th>Tên bài học</th>
+                                <th>Nội dung bài học</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {{#each course.courseLessons}}
+                            <tr>
+                                <td>{{sum @index 1}}</td>
+                                <td>{{this.name}}</td>
+                                <td>{{this.description}}</td>
+                            </tr>
+                            {{/each}}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="col-7">
+            <div class="course-comments">
+                <div class="course-comments__title">Bình luận</div>
+                <div class="row panel">
+                    <div class="course-comments__avatar"></div>
+                    <textarea type="text" name="comment" class="col-10 course-comments__input" placeholder="Thêm bình luận công khai...."></textarea>
+                    <div class="course-comments__buttons col-2">
+                        {{#if user}}
+                        <button class="btn btn-primary">BÌNH LUẬN</button>
+                        {{else}}
+                        <button class="btn btn-primary disabled">BÌNH LUẬN</button>
+                        {{/if}}
+                    </div>
+                </div>
+                <div class="row panel">
+                    <div class="course-comments__item row mb-5">
+                        <div class="col-1" style="padding: 0">
+                            <div class="course-comments__item-avatar" style="background-image: url('/img/users/default-avatar.jpg');"></div>
+                        </div>
+                        <div class="col-7">
+                            <div class="course-comments__item-content">
+                                <div class="course-comments__item-content__name">
+                                    Lap Nguyen
+                                </div>
+                                <div class="course-comments__item-content__text">
+                                    Khóa học hay quá
+                                </div>
+                                <div class="course-comments__item-content__time">
+                                    At: 20:30 PM 20/11/2021
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="course-comments__item row mb-5">
+                        <div class="col-1" style="padding: 0">
+                            <div class="course-comments__item-avatar" style="background-image: url('/img/users/default-avatar.jpg');"></div>
+                        </div>
+                        <div class="col-7">
+                            <div class="course-comments__item-content">
+                                <div class="course-comments__item-content__name">
+                                    Lap Nguyen
+                                </div>
+                                <div class="course-comments__item-content__text">
+                                    Khóa học hay quá
+                                </div>
+                                <div class="course-comments__item-content__time">
+                                    At: 20:30 PM 20/11/2021
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="course-comments__item row mb-5">
+                        <div class="col-1" style="padding: 0">
+                            <div class="course-comments__item-avatar" style="background-image: url('/img/users/default-avatar.jpg');"></div>
+                        </div>
+                        <div class="col-7">
+                            <div class="course-comments__item-content">
+                                <div class="course-comments__item-content__name">
+                                    Lap Nguyen
+                                </div>
+                                <div class="course-comments__item-content__text">
+                                    Khóa học hay quá
+                                </div>
+                                <div class="course-comments__item-content__time">
+                                    At: 20:30 PM 20/11/2021
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+    </div>             
+</div>
+
+<script src="/js/comment-course.js">
+    
+</script>

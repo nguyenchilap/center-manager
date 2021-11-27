@@ -57,7 +57,8 @@
 
 /* BODY */
 #main-body {
-  margin-top: 80px; }
+  margin-top: 80px;
+  font-size: 1.6rem; }
 
 /* SLIDER */
 #slider {

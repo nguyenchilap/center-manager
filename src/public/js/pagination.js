@@ -4,8 +4,9 @@ document.addEventListener('DOMContentLoaded', function(){
     let btnListPageNum = $('.course-list__pagination .pagination');
 
     let courseItems = courseItemsOriginal;
-    let maxPage = courseItems.length >= MAX_ITEM_PER_PAGE ? (courseItems.length - courseItems.length % MAX_ITEM_PER_PAGE)/MAX_ITEM_PER_PAGE : 1;
+    let maxPage = courseItems.length >= MAX_ITEM_PER_PAGE ? Math.ceil(courseItems.length/ MAX_ITEM_PER_PAGE) : 1;
 
+    console.log(courseItems.length >= MAX_ITEM_PER_PAGE, maxPage);
     //LOAD PAGE
     function renderNumPages(){
         btnListPageNum.append(`<li class="page-item disabled"><div class="page-link">Previous</div></li>
