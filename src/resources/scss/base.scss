@@ -32,6 +32,10 @@ html{
     display: block;
 }
 
+.modal-confirm .modal-content{
+    margin-top: 16vh;
+}
+
 input {
     font-size: 1.4rem !important;
 }
@@ -40,5 +44,6 @@ input {
     padding: 16px;
     background-color: #f8f8f8;
 }
+
 
 

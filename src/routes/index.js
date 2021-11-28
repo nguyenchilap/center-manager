@@ -11,7 +11,7 @@ function route(app){
 
     app.post('/logout', function(req, res){
         req.logout();
-        res.redirect('/');
+        res.redirect('back');
     });
     app.use('/', siteRouter);
     

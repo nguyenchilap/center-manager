@@ -28,7 +28,7 @@ class SiteController{
         const user = req.user;
         Student.findOne({account: ObjectId(user._id)})
         .then(student => {
-            res.redirect('/');
+            res.redirect('back');
         })
         .catch(next);
     }

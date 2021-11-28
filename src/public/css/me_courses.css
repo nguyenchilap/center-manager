@@ -92,11 +92,6 @@
   flex: 1;
   margin-left: 8px; }
 
-.modal-footer {
-  display: flex;
-  justify-content: space-between;
-  padding: 12px 26px; }
-
 .course-result__grade {
   font-size: 2rem;
   color: var(--text-hightlight-color);

@@ -25,9 +25,10 @@
                             <li><a class="dropdown-item user__drop-down-item" href="/me/courses">Khóa học của tôi</a></li>
                             <li><a class="dropdown-item user__drop-down-item" href="/me/account">Cài đặt tài khoản</a></li>
                             <li><hr class="dropdown-divider"></li>
-                            <li><form action="/logout" method="POST">
-                                <button type="submit" class="dropdown-item user__drop-down-item" href="#">Đăng xuất</button>
-                            </form></li>
+                            <li>
+                                <button type="submit" class="dropdown-item user__drop-down-item"
+                                data-bs-toggle="modal" data-bs-target="#signoutConfirmModal">Đăng xuất</button>
+                            </li>
                         </ul>
                         </li>
                     </ul>
@@ -46,10 +47,104 @@
     </div>
 </nav>
 
+<form class="modal modal__sign-in" tabindex="-1" method="POST" action="/">
+    <div class="modal-dialog">
+    <div class="modal-content">
+        <div class="modal-header">
+        <span class="modal-title modal__sign-in-title">Sign in</span>
+        <button type="button" class="btn btn-light btn-switch-modal" data-bs-dismiss="modal">Sign up</button>
+        </div>
+        <div class="modal-body">
+        <div class="mb-3">
+            <label for="sign-in__user-name" class="form-label">User Name:</label>
+            <input type="text" name="username" class="form-control" id="sign-in__user-name" placeholder="Your username....">
+        </div>
+        <div class="mb-3">
+            <label for="password" class="form-label">Password:</label>
+            <input type="password" name="password" class="form-control" id="sign-in__password" placeholder="Your password....">
+        </div>
+        </div>
+        <div class="modal-footer">
+        <button type="button" class="btn btn-secondary btn-close-modal" data-bs-dismiss="modal">Close</button>
+        <button type="submit" class="btn btn-success modal__sign-in-btn-submit">Sign in</button>
+        </div>
+    </div>
+    </div>
+</form>
+
+<form class="modal modal__sign-up" action="/account/signup" method="POST" tabindex="-1">
+    <div class="modal-dialog">
+    <div class="modal-content">
+        <div class="modal-header">
+        <span class="modal-title modal__sign-up-title">Sign up</span>
+        <button type="button" class="btn btn-light btn-switch-modal" data-bs-dismiss="modal">Sign in</button>
+        </div>
+        <div class="modal-body">
+        <div class="mb-3">
+            <label for="sign-up__user-name" class="form-label">User Name:</label>
+            <input type="text" name="username" class="form-control" id="sign-up__user-name" placeholder="Your username...." required>
+        </div>
+        <div class="mb-3">
+            <label for="password" class="form-label">Password:</label>
+            <input type="password" name="password" class="form-control" id="sign-up__password" placeholder="Your password...." required>
+        </div>
+        <div class="mb-3">
+            <label for="confirm-password" class="form-label">Confirm Password:</label>
+            <input type="password" name="confirm-password" class="form-control" id="sign-up__confirm-password" placeholder="Confirm your password...." required>
+        </div>
+        <div class="mb-3">
+            <label for="full-name" class="form-label">Full name:</label>
+            <input type="text" name="name" class="form-control" id="full-name" placeholder="Your full name...." required>
+        </div>
+        <div class="mb-3">
+            <label for="date" class="form-label">Date of Birth</label>
+            <div id="date">
+            <input type="text" name="DOB-day" class="date__field form-control" placeholder="DD" required>
+            <input type="text" name="DOB-month" class="date__field form-control" placeholder="MM" required>
+            <input type="text" name="DOB-year" class="date__field form-control" placeholder="YYYY" required>
+            </div>
+        </div>
+        <div class="mb-3">
+            <label for="sign-up__email" class="form-label">Email:</label>
+            <input type="email" name="email" class="form-control" id="sign-up__email" placeholder="Your email..." required>
+        </div>
+        <div class="mb-3">
+            <label for="sign-up__phone" class="form-label">Phone Number:</label>
+            <input type="text" name="phone" class="form-control" id="sign-up__phone" placeholder="Your phone number..." required>
+        </div>
+        
+        </div>
+        <div class="modal-footer">
+        <button type="button" class="btn btn-secondary btn-close-modal" data-bs-dismiss="modal">Close</button>
+        <button type="submit" class="btn btn-success modal__sign-up-btn-submit">Sign up</button>
+        </div>
+    </div>
+    </div>
+</form>
+
+
+<div class="modal modal-confirm" id="signoutConfirmModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">ĐĂNG XUẤT</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <p>Bạn đang đăng xuất khỏi tài khoản</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-light" data-bs-dismiss="modal">Đóng</button>
+        <button type="button" class="btn btn-success btn-confirm-sign-out">Tiếp tục</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<form name="logOut" method="POST" action="/logout"></form>
+
 <script>
-    {{!-- const userDropdown = document.querySelector('.user__drop-down');
-    $('.navbar-user__wrapper').click(function(){
-        if(userDropdown.style.display === 'block') userDropdown.style.display = 'none';
-        else userDropdown.style.display = 'block';
-    }) --}}
+        $('.btn-confirm-sign-out').click(function(){
+            $('form[name="logOut"]').submit();
+        })
 </script>

@@ -1,12 +1,11 @@
 document.addEventListener('DOMContentLoaded', function(){
     const MAX_ITEM_PER_PAGE = $('.course-list__pagination').attr('max-item-per-page');
     const courseItemsOriginal = document.querySelectorAll('.course-item-wrapper');
-    let btnListPageNum = $('.course-list__pagination .pagination');
 
+    let btnListPageNum = $('.course-list__pagination .pagination');
     let courseItems = courseItemsOriginal;
     let maxPage = courseItems.length >= MAX_ITEM_PER_PAGE ? Math.ceil(courseItems.length/ MAX_ITEM_PER_PAGE) : 1;
 
-    console.log(courseItems.length >= MAX_ITEM_PER_PAGE, maxPage);
     //LOAD PAGE
     function renderNumPages(){
         btnListPageNum.append(`<li class="page-item disabled"><div class="page-link">Previous</div></li>
@@ -14,7 +13,10 @@ document.addEventListener('DOMContentLoaded', function(){
         for(let i = 2; i <= maxPage; i++){
             btnListPageNum.append(`<li class="page-item page-number"><div class="page-link">${i}</div></li>`);
         }
-        btnListPageNum.append(`<li class="page-item"><div class="page-link">Next</div></li>`);                   
+        btnListPageNum.append(`<li class="page-item"><div class="page-link">Next</div></li>`);   
+        setClickOnPages();   
+        setClickOnNext();
+        setClickOnPrev();
     }
 
     function renderCourses(courseArray){
@@ -28,13 +30,14 @@ document.addEventListener('DOMContentLoaded', function(){
     renderNumPages(); 
     renderCourses(courseItems);
 
-    //AFTER LOAD PAGE
-    const btnNextPage = $('.course-list__pagination .page-item:last-child');
-    const btnPrevPage = $('.course-list__pagination .page-item:first-child');
-    
+    //CHECK IF CANNOT CLICK PREV OR NEXT
     function checkOverPage(){
-        if ($('.page-number.active').children().html() == maxPage) btnNextPage.addClass('disabled'); else btnNextPage.removeClass('disabled');
-        if ($('.page-number.active').children().html() == '1') btnPrevPage.addClass('disabled'); else btnPrevPage.removeClass('disabled');
+        if ($('.page-number.active').children().html() == maxPage) 
+            $('.course-list__pagination .page-item:last-child').addClass('disabled'); 
+        else $('.course-list__pagination .page-item:last-child').removeClass('disabled');
+        if ($('.page-number.active').children().html() == '1') 
+            $('.course-list__pagination .page-item:first-child').addClass('disabled'); 
+        else $('.course-list__pagination .page-item:first-child').removeClass('disabled');
     }
     checkOverPage();
 
@@ -46,39 +49,45 @@ document.addEventListener('DOMContentLoaded', function(){
     }
 
     //CLICK SPECIFIC PAGE
-    $('.page-number').click(function(){
-        switchPage($(this).children().html());
-        checkOverPage();
-    })
+    function setClickOnPages(){
+        $('.page-number').click(function(){
+            switchPage($(this).children().html());
+            checkOverPage();
+        })
+    }
 
     //CLICK NEXT PAGE
-    btnNextPage.click(function(){
-        const recentPage = $('.page-number.active .page-link').html();
-        if (recentPage < maxPage) 
-            switchPage(Number(recentPage) + 1);
-        checkOverPage();
-    })
+    function setClickOnNext(){
+        $('.course-list__pagination .page-item:last-child').click(function(){
+            const recentPage = $('.page-number.active .page-link').html();
+            if (recentPage < maxPage) 
+                switchPage(Number(recentPage) + 1);
+            checkOverPage();
+        })
+    }
 
     //CLICK PREVIOUS PAGE
-    btnPrevPage.click(function(){
-        const recentPage = $('.page-number.active .page-link').html();
-        if (Number(recentPage) > 1) 
-            switchPage(Number(recentPage) - 1);
-        checkOverPage();
-    })
+    function setClickOnPrev(){
+        $('.course-list__pagination .page-item:first-child').click(function(){
+            const recentPage = $('.page-number.active .page-link').html();
+            if (Number(recentPage) > 1) 
+                switchPage(Number(recentPage) - 1);
+            checkOverPage();
+        })
+    }
 
-    //COURSES SEARCHING
+
+    //COURSES FILTER
     filterCourse = (keyword, field) => {
         courseItems = [];
         courseItemsOriginal.forEach(courseItem => {
             const courseName = courseItem.getAttribute(field).toUpperCase();
             if (courseName.includes(keyword.toUpperCase())) courseItems.push(courseItem);
         });
-        maxPage = courseItems.length >= MAX_ITEM_PER_PAGE ? (courseItems.length - courseItems.length % MAX_ITEM_PER_PAGE)/MAX_ITEM_PER_PAGE : 1;
+        maxPage = courseItems.length >= MAX_ITEM_PER_PAGE ? Math.ceil(courseItems.length/ MAX_ITEM_PER_PAGE) : 1;
         btnListPageNum.html('');
         renderNumPages(); 
         renderCourses(courseItems);
-        checkOverPage();
     }
 
     //SEARCH BY COURSE NAME

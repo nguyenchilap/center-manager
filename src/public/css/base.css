@@ -38,6 +38,9 @@ html {
 .modal.active {
   display: block; }
 
+.modal-confirm .modal-content {
+  margin-top: 16vh; }
+
 input {
   font-size: 1.4rem !important; }
 

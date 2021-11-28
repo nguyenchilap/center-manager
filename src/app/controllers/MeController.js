@@ -1,8 +1,8 @@
-const multer  = require('multer');
-const fs = require('fs-extra');
-
 const Student = require('../models/Student');
-const {mongooseToObject} = require('../../utils/mongoose');
+const Course = require('../models/Course');
+const CourseType = require('../models/CourseType');
+
+const {mongooseToObject, multiMongooseToObject} = require('../../utils/mongoose');
 const {getUser} = require('../../utils/getUser');
 const {uploadStudentImage} = require('../../config/firebase');
 const ObjectId = require('mongoose').Types.ObjectId; 
@@ -67,7 +67,17 @@ class MeController{
 
     // [GET] /me/courses
     showMyCourses(req, res, next){
-        getUser('me/courses', req, res, next);
+        Promise.all([Course.find({"courseStudents.studentId": Object(req.user._id)}), Student.findOne({account: req.user}), CourseType.find()])
+        .then(([courses, student, coursetypes]) => {
+            res.render('me/courses',{ 
+                courses: multiMongooseToObject(courses),
+                coursetypes: multiMongooseToObject(coursetypes),
+                user: req.user,
+                userInfo: mongooseToObject(student),
+                maxItemPerPage: 6,
+            });
+        })
+        .catch(next);
     }
 }
 

@@ -2,14 +2,26 @@
     <div class="row panel">
         <div class="col-5">
             <div class="course-info">
-                <div class="course-info__component course-info__image" style="background-image: url({{course.img}});"></div>
-                <div class="course-info__component course-info__name">{{course.name}}</div>
-                <div class="course-info__component course-info__type">
-                    {{#each course.courseTypes}}
-                    {{#if this}}
-                    <div class="course-info__component course-info__type-item">#{{this}}</div>
-                    {{/if}}
-                    {{/each}}
+                <div class="course-info__component course-info__image" style="background-image: url({{course.img}});">
+                </div>
+                <div class="row">
+                    <div class="col-8">
+                        <div class="course-info__component course-info__name">{{course.name}}</div>
+                        <div class="course-info__component course-info__type">
+                            {{#each course.courseTypes}}
+                            {{#if this}}
+                            <div class="course-info__component course-info__type-item">#{{this}}</div>
+                            {{/if}}
+                            {{/each}}
+                        </div>
+                    </div>
+
+                    <div class="col-4 d-flex">
+                        <button type="button" class="btn btn-outline-dark btn-register-course" 
+                        data-bs-toggle="modal" data-bs-target="#registerConfirmModal">
+                            ĐĂNG KÍ NGAY
+                        </button>
+                    </div>
                 </div>
                 <div class="course-info__component course-info__date">Ngày: {{modifyDate course.createdAt}}</div>
                 <div class="course-info__component course-info__description">Nội dung khóa học: {{course.description}}</div>
@@ -40,78 +52,73 @@
             <div class="course-comments">
                 <div class="course-comments__title">Bình luận</div>
                 <div class="row panel">
-                    <div class="course-comments__avatar"></div>
                     <textarea type="text" name="comment" class="col-10 course-comments__input" placeholder="Thêm bình luận công khai...."></textarea>
                     <div class="course-comments__buttons col-2">
                         {{#if user}}
-                        <button class="btn btn-primary">BÌNH LUẬN</button>
+                        <input name="account-id" value="{{course._id}}" style="display: none;"/>
+                        <input name="student-name" value="{{userInfo.name}}" style="display: none;"/>
+                        <button type="submit" class="btn btn-primary btn-comment">BÌNH LUẬN</button>
                         {{else}}
                         <button class="btn btn-primary disabled">BÌNH LUẬN</button>
                         {{/if}}
                     </div>
                 </div>
-                <div class="row panel">
+                <div class="row panel course-comments__items-wrapper">
+                    {{#each course.courseComments}}
                     <div class="course-comments__item row mb-5">
                         <div class="col-1" style="padding: 0">
-                            <div class="course-comments__item-avatar" style="background-image: url('/img/users/default-avatar.jpg');"></div>
+                            <div class="course-comments__item-avatar" style="background-image: url({{this.studentAvatar}});"></div>
                         </div>
                         <div class="col-7">
                             <div class="course-comments__item-content">
                                 <div class="course-comments__item-content__name">
-                                    Lap Nguyen
+                                    {{this.studentName}}
                                 </div>
                                 <div class="course-comments__item-content__text">
-                                    Khóa học hay quá
+                                    {{this.comment}}
                                 </div>
                                 <div class="course-comments__item-content__time">
-                                    At: 20:30 PM 20/11/2021
+                                    At: {{modifyDateTime this.commentAt}}
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div class="course-comments__item row mb-5">
-                        <div class="col-1" style="padding: 0">
-                            <div class="course-comments__item-avatar" style="background-image: url('/img/users/default-avatar.jpg');"></div>
-                        </div>
-                        <div class="col-7">
-                            <div class="course-comments__item-content">
-                                <div class="course-comments__item-content__name">
-                                    Lap Nguyen
-                                </div>
-                                <div class="course-comments__item-content__text">
-                                    Khóa học hay quá
-                                </div>
-                                <div class="course-comments__item-content__time">
-                                    At: 20:30 PM 20/11/2021
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="course-comments__item row mb-5">
-                        <div class="col-1" style="padding: 0">
-                            <div class="course-comments__item-avatar" style="background-image: url('/img/users/default-avatar.jpg');"></div>
-                        </div>
-                        <div class="col-7">
-                            <div class="course-comments__item-content">
-                                <div class="course-comments__item-content__name">
-                                    Lap Nguyen
-                                </div>
-                                <div class="course-comments__item-content__text">
-                                    Khóa học hay quá
-                                </div>
-                                <div class="course-comments__item-content__time">
-                                    At: 20:30 PM 20/11/2021
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    
+                    {{/each}}
                 </div>
             </div>
         </div>
     </div>             
 </div>
 
-<script src="/js/comment-course.js">
-    
+<div class="modal modal-confirm" id="registerConfirmModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">ĐĂNG KÍ KHÓA HỌC</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <p>Bạn có muốn đăng kí khóa học này không?</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-light" data-bs-dismiss="modal">Đóng</button>
+        <button type="button" class="btn btn-success btn-confirm-register-course">Tiếp tục</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<form method="POST" name="register-course" action="/courses/register/{{course._id}}/{{user._id}}" style="display: none;" >
+</form>
+
+<script src="/js/comment-course.js"></script>
+
+<script>
+        $(document).ready(function(){
+            $('head title').html(`Khóa ${$('.course-info__name').html()}`)
+
+            $('.btn-confirm-register-course').click(function(){
+                $('form[name="register-course"]').submit();
+            })
+        })
 </script>

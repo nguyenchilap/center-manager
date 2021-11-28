@@ -47,13 +47,35 @@
                         </div>
                     </div>
                 </div>
-                <button type="submit" class="btn btn-outline-dark customize__edit-btn">Confirm Edit</button>
+                <div class="btn btn-outline-dark customize__edit-btn" data-bs-toggle="modal" data-bs-target="#editConfirmModal">Confirm Edit</div>
             </form>
         </div>
 </div>
 
+
+<div class="modal modal-confirm" id="editConfirmModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">CHỈNH SỬA THÔNG TIN</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <p>Bạn có muốn sửa những thông tin này không?</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-light" data-bs-dismiss="modal">Đóng</button>
+        <button type="button" class="btn btn-success btn-confirm-edit-course">Tiếp tục</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 <script>
     document.addEventListener('DOMContentLoaded', function(){
+
+        $('head title').html(`${$('.customize__body input[name="name"]').val()}`);
+
         const inputImage = document.querySelector('.customize__input-file');
         const uploadedImage = document.querySelector('.uploaded-img');
         const btnUploadImage = document.querySelector('.customize__edit-img');
@@ -68,5 +90,8 @@
             btnSaveUploadImage.style.display = 'block';
         }
 
+        $('.btn-confirm-edit-course').click(function(){
+            $('.customize__body').submit();
+        })
     })
 </script>
