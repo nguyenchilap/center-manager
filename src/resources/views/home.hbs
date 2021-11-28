@@ -80,13 +80,14 @@
                                                         courseLevel="{{this.level}}" 
                                                         courseType="{{#each this.courseTypes as |type|}}{{#if type}}{{type}} {{/if}}{{/each}}">
                     <div class="course-item card mt-5">
-                        <div style="background-image: url({{this.img}});" class="card-img-top course-item__img" alt="course-img"></div>
+                        <a style="background-image: url({{this.img}});" href="/courses/show/{{this._id}}" target="_blank" class="card-img-top course-item__img" alt="course-img">
+                            <div class="course-item__button-view">MORE DETAILS</div>
+                        </a>
                         <div class="card-body course-item__body">
                           <h3 class="card-title course-item__title">{{this.name}}</h3>
                           <p class="card-text course-item__description">{{this.description}}</p>
                           <div class="course-item__button ms-auto ">
-                            <a href="/courses/show/{{this._id}}" target="_blank" class="btn btn-primary btn-light course-item__button-view">More Details</a>
-                            <button class="btn btn-primary btn-dark course-item__button-resigter">Register</button>
+                            <button class="btn btn-outline-dark course-item__button-resigter">Register</button>
                           </div>
                         </div>
                     </div>
@@ -104,4 +105,40 @@
         </div>
     </div>
 
+<div class="modal modal-confirm" id="signInConfirmModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">ĐĂNG KÍ KHÓA HỌC</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <p>Bạn phải đăng nhập trước</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-light btn-close-modal-confirm" data-bs-dismiss="modal">Hủy</button>
+        <button type="button" class="btn btn-success btn-confirm-open-sign-in">Đăng nhập</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 <script src="/js/pagination.js"></script>
+
+<script>
+    $(document).ready(function(){
+        if($('.navbar__btn-sign-in').html()){
+            $('.course-item__button-resigter').attr('data-bs-toggle', 'modal');
+            $('.course-item__button-resigter').attr('data-bs-target', '#signInConfirmModal');
+        }
+        else{
+            $('.course-item__button-resigter').attr('data-bs-toggle', '');
+            $('.course-item__button-resigter').attr('data-bs-target', '');
+        }
+
+        $('.btn-confirm-open-sign-in').click(function(){
+            $('.btn-close-modal-confirm').click();
+            $('.modal__sign-in').addClass('active');
+        })
+    })
+</script>

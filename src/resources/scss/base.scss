@@ -1,4 +1,5 @@
 @import 'variables';
+@import 'keyframe';
 
 html{
     font-size: 62.5%;
@@ -30,6 +31,11 @@ html{
 
 .modal.active{
     display: block;
+}
+
+.modal {
+    --opc: 1;
+    animation: fadeIn ease-in .1s;
 }
 
 .modal-confirm .modal-content{

@@ -1,4 +1,5 @@
 :root {
+  --primary-dark-color: #221e27;
   --primary-color: #bcd0e0;
   --white-color: #fff;
   --black-color: #000;
@@ -9,6 +10,18 @@
   --love-color: #e31b23;
   --angry-color: #c92929;
   --text-hightlight-color: rgb(116, 13, 13); }
+
+@keyframes darken {
+  from {
+    -webkit-filter: brightness(100%); }
+  to {
+    -webkit-filter: brightness(65%); } }
+
+@keyframes fadeIn {
+  from {
+    opacity: 0.3; }
+  to {
+    opacity: var(--opc); } }
 
 html {
   font-size: 62.5%;
@@ -37,6 +50,10 @@ html {
 
 .modal.active {
   display: block; }
+
+.modal {
+  --opc: 1;
+  animation: fadeIn ease-in .1s; }
 
 .modal-confirm .modal-content {
   margin-top: 16vh; }

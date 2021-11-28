@@ -1,0 +1,17 @@
+@keyframes darken{
+    from{
+        -webkit-filter: brightness(100%);
+    }
+    to{
+        -webkit-filter: brightness(65%);
+    }
+}
+
+@keyframes fadeIn{
+    from{
+        opacity: 0.3;
+    }
+    to{
+        opacity: var(--opc);
+    }
+}
