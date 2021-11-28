@@ -55,7 +55,8 @@
                     <textarea type="text" name="comment" class="col-10 course-comments__input" placeholder="Thêm bình luận công khai...."></textarea>
                     <div class="course-comments__buttons col-2">
                         {{#if user}}
-                        <input name="account-id" value="{{course._id}}" style="display: none;"/>
+                        <input name="course-id" value="{{course._id}}" style="display: none;"/>
+                        <input name="account-id" value="{{user._id}}" style="display: none;"/>
                         <input name="student-name" value="{{userInfo.name}}" style="display: none;"/>
                         <button type="submit" class="btn btn-primary btn-comment">BÌNH LUẬN</button>
                         {{else}}
@@ -67,7 +68,7 @@
                     {{#each course.courseComments}}
                     <div class="course-comments__item row mb-5">
                         <div class="col-1" style="padding: 0">
-                            <div class="course-comments__item-avatar" style="background-image: url({{this.studentAvatar}});"></div>
+                            <div class="course-comments__item-avatar" style="background-image: url({{this.img}});"></div>
                         </div>
                         <div class="col-7">
                             <div class="course-comments__item-content">

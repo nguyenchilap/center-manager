@@ -9,11 +9,10 @@ document.addEventListener('DOMContentLoaded', function(){
 
     //write comment
     $('.btn-comment').click(function(){
-        $.post(`/courses/show/${$('input[name ="account-id"]').attr('value')}/push-comment`,
+        $.post(`/courses/show/${$('input[name ="course-id"]').attr('value')}/push-comment`,
             {
                 accountId: $('input[name ="account-id"]').attr('value'),
                 studentName: $('input[name ="student-name"]').attr('value'),
-                studentAvatar: $('.user_drop-down-avatar').attr('src'),
                 comment: $('textarea[name ="comment"]').val(),
             },
             function(res){

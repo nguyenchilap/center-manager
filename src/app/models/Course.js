@@ -16,7 +16,6 @@ const Course = new Schema({
         [{
             accountId: {type: Schema.Types.ObjectId}, 
             studentName: {type: String}, 
-            studentAvatar: {type: String},
             comment: {type: String},
             commentAt: {type: Date, default: Date.now()},
         }],

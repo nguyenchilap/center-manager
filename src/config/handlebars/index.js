@@ -7,4 +7,5 @@ module.exports = {
     isNone: param => param === 'none', 
     modifyDate: param => `${param.getDate()}/${param.getMonth() + 1}/${param.getYear()-100+2000}`,
     modifyDateTime: param => param.toLocaleString(),
+    getItemByIndex: (arr, index) => arr[index],
 }

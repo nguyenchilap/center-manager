@@ -17,6 +17,12 @@
   to {
     -webkit-filter: brightness(65%); } }
 
+@keyframes fadeIn {
+  from {
+    opacity: 0.3; }
+  to {
+    opacity: var(--opc); } }
+
 /* HEADER */
 .header__navbar {
   position: fixed;

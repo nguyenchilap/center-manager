@@ -1,17 +1,33 @@
 const Course = require('../models/Course');
 const Student = require('../models/Student');
+const ObjectId = require('mongoose').Types.ObjectId; 
 
-const {mongooseToObject} = require('../../utils/mongoose');
+const {mongooseToObject, multiMongooseToObject} = require('../../utils/mongoose');
 
 class CourseController{
     //[GET] /courses/show/:id
     show(req, res, next){
         Promise.all([Course.findOne({_id: req.params.id}), Student.findOne({account: req.user})])
-        .then(([course,student]) => res.render('courses/show',{
-                user: req.user,
-                userInfo: mongooseToObject(student),
-                course: mongooseToObject(course)
-        }))
+        .then(([course, student]) => {
+            let courseObject = mongooseToObject(course);
+            const accountIds = courseObject.courseComments.map(function(item, index){
+                    return ObjectId(item.accountId);
+            })
+            Student.find({account: {$in: accountIds}})
+            .then(students => {
+                const studentObjects = multiMongooseToObject(students);
+                const studentImages = accountIds.map((accountId) => {
+                    return studentObjects.find(studentObject => studentObject.account.toString() === accountId.toString()).img;
+                })
+                courseObject.courseComments.forEach((courseComment,index) => {courseComment.img = studentImages[index]});
+                res.render('courses/show',{
+                    course: courseObject,
+                    user: req.user,
+                    userInfo: mongooseToObject(student),
+                })
+            })
+            .catch(next);
+        })
         .catch(next);
     }
 
@@ -22,9 +38,7 @@ class CourseController{
                 courseComments: {
                     accountId: req.body.accountId,
                     studentName: req.body.studentName,
-                    studentAvatar: req.body.studentAvatar,
                     comment: req.body.comment,
-                    commentAt: Date.now()
                 }
             }
         }, function(error){

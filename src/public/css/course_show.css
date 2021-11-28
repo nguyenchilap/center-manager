@@ -1,7 +1,33 @@
+@keyframes darken {
+  from {
+    -webkit-filter: brightness(100%); }
+  to {
+    -webkit-filter: brightness(65%); } }
+
+@keyframes fadeIn {
+  from {
+    opacity: 0.3; }
+  to {
+    opacity: var(--opc); } }
+
+:root {
+  --primary-dark-color: #221e27;
+  --primary-color: #bcd0e0;
+  --white-color: #fff;
+  --black-color: #000;
+  --text-color: #333;
+  --border-color: #dbdbdb;
+  --facebook-color: #3b5998;
+  --success-color: #28a745;
+  --love-color: #e31b23;
+  --angry-color: #c92929;
+  --text-hightlight-color: rgb(116, 13, 13); }
+
 .course-info {
   width: 100%;
   border-right: 1px solid var(--border-color);
-  padding-right: 24px; }
+  padding-right: 24px;
+  color: var(--text-color); }
 
 .course-info__component {
   margin-bottom: 8px; }
@@ -40,6 +66,9 @@
 
 .course-info__lessons {
   margin-top: 18px; }
+
+.course-comments {
+  color: var(--text-color); }
 
 .course-comments__title {
   padding-left: 6px;
