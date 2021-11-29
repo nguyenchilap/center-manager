@@ -1,5 +1,6 @@
 :root {
   --primary-dark-color: #221e27;
+  --primary-dark-hover-color: #525252;
   --primary-color: #bcd0e0;
   --white-color: #fff;
   --black-color: #000;
@@ -23,6 +24,28 @@
   to {
     opacity: var(--opc); } }
 
+@keyframes growthDown {
+  0% {
+    transform: scaleY(0); }
+  80% {
+    transform: scaleY(1.1); }
+  100% {
+    transform: scaleY(1); } }
+
+@keyframes growthUp {
+  0% {
+    transform: scale(0); }
+  100% {
+    transform: scale(1); } }
+
+@keyframes btnPushDown {
+  0% {
+    opacity: 0;
+    transform: translateY(-40px); }
+  100% {
+    opacity: 1;
+    transform: translateY(0); } }
+
 /* BODY */
 #main-body {
   margin-top: 80px;
@@ -40,7 +63,8 @@
   padding-bottom: 12px;
   display: flex;
   justify-content: space-between;
-  width: 58%; }
+  width: 58%;
+  min-height: 150px; }
 
 .customize__body {
   padding: 0 124px;
@@ -104,7 +128,8 @@
   width: 140px;
   height: 140px;
   border-radius: 50%;
-  border: 3px solid; }
+  border: 3px solid;
+  transition: ease; }
 
 .customize__avatar-icon {
   width: 75%;
@@ -126,4 +151,5 @@
   border-radius: 20px;
   margin-top: 8px;
   padding: 2px 8px;
-  display: none; }
+  display: none;
+  animation: btnPushDown ease .4s; }

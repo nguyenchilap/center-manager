@@ -1,4 +1,17 @@
 document.addEventListener('DOMContentLoaded', function(){
+    //DISPLAY SEQUENTIALLY
+    $('.course-item-wrapper').each(function() {
+        const delay = $(this).index() * 200 + 'ms';
+    
+        $(this).css({
+            '-webkit-transition-delay': delay,
+            '-moz-transition-delay': delay,
+            '-o-transition-delay': delay,
+            'transition-delay': delay
+        });                  
+    });
+
+
     const MAX_ITEM_PER_PAGE = $('.course-list__pagination').attr('max-item-per-page');
     const courseItemsOriginal = document.querySelectorAll('.course-item-wrapper');
 

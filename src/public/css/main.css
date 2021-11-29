@@ -1,5 +1,6 @@
 :root {
   --primary-dark-color: #221e27;
+  --primary-dark-hover-color: #525252;
   --primary-color: #bcd0e0;
   --white-color: #fff;
   --black-color: #000;
@@ -23,6 +24,28 @@
   to {
     opacity: var(--opc); } }
 
+@keyframes growthDown {
+  0% {
+    transform: scaleY(0); }
+  80% {
+    transform: scaleY(1.1); }
+  100% {
+    transform: scaleY(1); } }
+
+@keyframes growthUp {
+  0% {
+    transform: scale(0); }
+  100% {
+    transform: scale(1); } }
+
+@keyframes btnPushDown {
+  0% {
+    opacity: 0;
+    transform: translateY(-40px); }
+  100% {
+    opacity: 1;
+    transform: translateY(0); } }
+
 /* HEADER */
 .header__navbar {
   position: fixed;
@@ -35,7 +58,14 @@
 
 .navbar-brand {
   display: flex;
-  align-items: center; }
+  align-items: center;
+  border-radius: 20px;
+  padding-left: 4px; }
+
+.navbar-brand:hover {
+  background-color: var(--primary-dark-hover-color);
+  padding-right: 18px;
+  transition: ease-out .3s; }
 
 .navbar-brand__name {
   color: #fff;
@@ -75,7 +105,7 @@
   border-radius: 20px; }
 
 .navbar-user__wrapper:hover {
-  background-color: #525252; }
+  background-color: var(--primary-dark-hover-color); }
 
 .user_drop-down-avatar {
   height: 32px;
@@ -85,6 +115,17 @@
 
 .user__drop-down-item {
   padding: 8px 64px 8px 12px; }
+
+.navbar__btn-sign-up,
+.navbar__btn-sign-in {
+  border-radius: 20px;
+  padding: 6px 14px; }
+
+.navbar__btn-sign-up:hover,
+.navbar__btn-sign-in:hover {
+  transform: scale(1.2);
+  transition: ease-in .3s;
+  padding: 6px 16px; }
 
 /* BODY */
 body {
@@ -106,7 +147,7 @@ body {
   height: 300px;
   width: 100%;
   background-repeat: no-repeat;
-  background-size: cover;
+  background-size: 100%;
   background-position: center center; }
 
 /* CONTENT */
@@ -120,6 +161,10 @@ body {
   background-color: #5878a8; }
 
 /* COURSE LIST */
+.course-filter-type-item,
+.course-filter-level-item {
+  cursor: pointer; }
+
 .courses-list {
   width: 100%; }
 
@@ -134,7 +179,9 @@ body {
   display: none; }
 
 .course-item-wrapper.active {
-  display: block !important; }
+  display: block !important;
+  animation: growthUp ease 0.7s;
+  transform-origin: center center; }
 
 .course-item {
   border-radius: 8px;
@@ -247,6 +294,9 @@ body {
 
 .date__field {
   width: 30%; }
+
+.btn-switch-modal {
+  border-radius: 20px; }
 
 #footer {
   min-height: 200px;

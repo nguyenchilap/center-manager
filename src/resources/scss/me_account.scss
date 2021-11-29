@@ -23,6 +23,7 @@
     display: flex;
     justify-content: space-between;
     width: 58%;
+    min-height: 150px;
 }
 
 .customize__body{
@@ -98,6 +99,7 @@
     height: 140px;
     border-radius: 50%;
     border: 3px solid;
+    transition: ease;
 }
 
 .customize__avatar-icon{
@@ -125,4 +127,5 @@
     margin-top: 8px;
     padding: 2px 8px;
     display: none;
+    animation: btnPushDown ease .4s;
 }

@@ -1,5 +1,6 @@
 :root {
   --primary-dark-color: #221e27;
+  --primary-dark-hover-color: #525252;
   --primary-color: #bcd0e0;
   --white-color: #fff;
   --black-color: #000;
@@ -23,12 +24,35 @@
   to {
     opacity: var(--opc); } }
 
+@keyframes growthDown {
+  0% {
+    transform: scaleY(0); }
+  80% {
+    transform: scaleY(1.1); }
+  100% {
+    transform: scaleY(1); } }
+
+@keyframes growthUp {
+  0% {
+    transform: scale(0); }
+  100% {
+    transform: scale(1); } }
+
+@keyframes btnPushDown {
+  0% {
+    opacity: 0;
+    transform: translateY(-40px); }
+  100% {
+    opacity: 1;
+    transform: translateY(0); } }
+
 html {
   font-size: 62.5%;
   line-height: 1.6rem;
   scroll-behavior: smooth;
   font-family: Arial, Helvetica, sans-serif;
-  box-sizing: border-box; }
+  box-sizing: border-box;
+  scroll-behavior: smooth; }
 
 .btn {
   font-size: 1.4rem; }
@@ -64,3 +88,8 @@ input {
 .panel {
   padding: 16px;
   background-color: #f8f8f8; }
+
+.dropdown-menu {
+  animation: growthDown .4s ease-in-out forwards;
+  transform-origin: top center;
+  top: 100% !important; }
