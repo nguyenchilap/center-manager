@@ -1,5 +1,5 @@
 <div id="main-body" class="container">
-    <div class="row panel">
+    <div class="row panel rounded">
         <div class="col-5">
             <div class="course-info">
                 <div class="course-info__component course-info__image" style="background-image: url({{course.img}});">
@@ -17,10 +17,16 @@
                     </div>
 
                     <div class="col-4 d-flex">
+                        {{#if (checkStudentInCourse user._id course.courseStudents)}}
+                        <button type="button" class="btn btn-outline-dark btn-register-course" disabled>
+                            ĐÃ ĐĂNG KÍ  
+                        </button>
+                        {{else}}
                         <button type="button" class="btn btn-outline-dark btn-register-course" 
                         data-bs-toggle="modal" data-bs-target="#registerConfirmModal">
                             ĐĂNG KÍ NGAY
                         </button>
+                        {{/if}}
                     </div>
                 </div>
                 <div class="course-info__component course-info__date">Ngày: {{modifyDate course.createdAt}}</div>
@@ -91,6 +97,24 @@
     </div>             
 </div>
 
+<div class="modal modal-confirm" id="signInConfirmModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">ĐĂNG KÍ KHÓA HỌC</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <p>Bạn phải đăng nhập trước</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-light btn-close-modal-confirm" data-bs-dismiss="modal">Hủy</button>
+        <button type="button" class="btn btn-success btn-confirm-open-sign-in">Đăng nhập</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 <div class="modal modal-confirm" id="registerConfirmModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
@@ -116,10 +140,28 @@
 
 <script>
         $(document).ready(function(){
-            $('head title').html(`Khóa ${$('.course-info__name').html()}`)
+            $('head title').html(`Khóa ${$('.course-info__name').html()}`);
 
+
+            //Render Register btn
+            if(!$('.navbar__btn-sign-in').html()){
+                $('.btn-register-course').attr('data-bs-toggle', 'modal');
+                $('.btn-register-course').attr('data-bs-target', '#registerConfirmModal');
+            }
+            else{
+                $('.btn-register-course').attr('data-bs-toggle', 'modal');
+                $('.btn-register-course').attr('data-bs-target', '#signInConfirmModal');
+            }
+
+            //Confirm register Clicked
             $('.btn-confirm-register-course').click(function(){
                 $('form[name="register-course"]').submit();
-            })
+            });
+
+            //Confirm Signin Clicked
+            $('.btn-confirm-open-sign-in').click(function(){
+                $('.btn-close-modal-confirm').click();
+                $('.modal__sign-in').addClass('active');
+            });
         })
 </script>

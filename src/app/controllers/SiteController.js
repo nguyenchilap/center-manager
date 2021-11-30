@@ -12,10 +12,22 @@ class SiteController{
     index(req, res, next){
         Promise.all([Course.find(), CourseType.find(), Student.findOne({account: req.user})])
         .then(([courses, coursetypes, student]) => {
+            let coursesObjects = multiMongooseToObject(courses);
+            if (req.user){
+                coursesObjects.forEach(courseObject => {
+                    courseObject.courseStudents.every(courseStudent => {
+                        if (courseStudent.studentId.toString() === req.user._id){
+                            courseObject.registered = true;
+                            return false;
+                        }
+                        return true;
+                    })
+                })
+            }
             res.render('home', {
                 user: req.user,
                 userInfo: mongooseToObject(student),
-                courses: multiMongooseToObject(courses),
+                courses: coursesObjects,
                 coursetypes: multiMongooseToObject(coursetypes),
                 maxItemPerPage: 6,
             });

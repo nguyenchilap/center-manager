@@ -86,8 +86,20 @@
                         <div class="card-body course-item__body">
                           <h3 class="card-title course-item__title">{{this.name}}</h3>
                           <p class="card-text course-item__description">{{this.description}}</p>
-                          <div class="course-item__button ms-auto ">
-                            <button class="btn btn-outline-dark course-item__button-resigter">Register</button>
+                          <div class="d-flex card-text course-item__rate">
+                             <i class="fas fa-star course-item__rating active"></i>
+                             <i class="fas fa-star course-item__rating"></i>
+                             <i class="fas fa-star course-item__rating"></i>
+                             <i class="fas fa-star course-item__rating"></i>
+                             <i class="fas fa-star course-item__rating"></i>
+                          </div>
+                          <p class="card-text course-item__price">{{this.price}} đ</p>
+                          <div class="course-item__button ms-auto">
+                            {{#if this.registered}}
+                            <button style="font-style: italic;" class="btn btn-outline-dark course-item__button-resigter" disabled>Đã đăng kí</button>
+                            {{else}}
+                            <button class="btn btn-outline-dark course-item__button-resigter">Đăng kí</button>
+                            {{/if}}
                           </div>
                         </div>
                     </div>
@@ -123,22 +135,57 @@
   </div>
 </div>
 
+<div class="modal modal-confirm" id="registerConfirmModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">ĐĂNG KÍ KHÓA HỌC</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <p>Bạn có muốn đăng kí khóa học này không?</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-light btn-close-modal-confirm" data-bs-dismiss="modal">Hủy</button>
+        <button type="button" class="btn btn-success btn-confirm-register-course">Tiếp tục</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<form method="POST" name="register-course" userId="{{user._id}}" action="" style="display: none;" >
+</form>
+
 <script src="/js/pagination.js"></script>
 
 <script>
     $(document).ready(function(){
+        //Render Register btn
         if($('.navbar__btn-sign-in').html()){
             $('.course-item__button-resigter').attr('data-bs-toggle', 'modal');
             $('.course-item__button-resigter').attr('data-bs-target', '#signInConfirmModal');
         }
         else{
-            $('.course-item__button-resigter').attr('data-bs-toggle', '');
-            $('.course-item__button-resigter').attr('data-bs-target', '');
+            $('.course-item__button-resigter').attr('data-bs-toggle', 'modal');
+            $('.course-item__button-resigter').attr('data-bs-target', '#registerConfirmModal');
         }
 
+        //Register Clicked
+        $('.course-item__button').click(function(){
+            const userId = $('form[name="register-course"]').attr('userId');
+            const courseId = $(this).closest('.course-item-wrapper').attr('courseId');
+            $('form[name="register-course"]').attr('action',`/courses/register/${courseId}/${userId}`);
+        });
+
+        //Confirm Register Clicked
+        $('.btn-confirm-register-course').click(function(){
+            $('form[name="register-course"]').submit();
+        });
+
+        //Confirm Signin Clicked
         $('.btn-confirm-open-sign-in').click(function(){
             $('.btn-close-modal-confirm').click();
             $('.modal__sign-in').addClass('active');
-        })
+        });
     })
 </script>
