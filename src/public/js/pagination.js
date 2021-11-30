@@ -21,12 +21,12 @@ document.addEventListener('DOMContentLoaded', function(){
 
     //LOAD PAGE
     function renderNumPages(){
-        btnListPageNum.append(`<li class="page-item disabled"><div class="page-link">Previous</div></li>
+        btnListPageNum.append(`<li class="page-item disabled"><a class="page-link" href="#courseList">Previous</a></li>
                     <li class="page-item page-number active"><div class="page-link">1</div></li>`);    
         for(let i = 2; i <= maxPage; i++){
             btnListPageNum.append(`<li class="page-item page-number"><div class="page-link">${i}</div></li>`);
         }
-        btnListPageNum.append(`<li class="page-item"><div class="page-link">Next</div></li>`);   
+        btnListPageNum.append(`<li class="page-item"><a class="page-link" href="#courseList">Next</a></li>`);   
         setClickOnPages();   
         setClickOnNext();
         setClickOnPrev();

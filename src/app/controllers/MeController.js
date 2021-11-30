@@ -69,8 +69,12 @@ class MeController{
     showMyCourses(req, res, next){
         Promise.all([Course.find({"courseStudents.studentId": Object(req.user._id)}), Student.findOne({account: req.user}), CourseType.find()])
         .then(([courses, student, coursetypes]) => {
+            let courseObjects = multiMongooseToObject(courses);
+            courseObjects.myRegistry = courseObjects.map((courseObject) => {
+                return courseObject.courseStudents.find(student => student.studentId === req.user._id);
+            })
             res.render('me/courses',{ 
-                courses: multiMongooseToObject(courses),
+                courses: courseObjects,
                 coursetypes: multiMongooseToObject(coursetypes),
                 user: req.user,
                 userInfo: mongooseToObject(student),

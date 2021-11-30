@@ -57,6 +57,22 @@ class CourseController{
         .then((error) => res.redirect('/me/courses'))
         .catch(next);
     }
+
+    //[POST] /courses/de-register/:courseId/:studentId
+    deRegister(req, res, next){
+        Course.findOne({_id: req.params.courseId})
+        .then((course) => {
+            const student = course.courseStudents.find(courseStudent => courseStudent.studentId.toString() === req.params.studentId.toString());
+            const indexOfStudent = course.courseStudents.indexOf(student);
+            if (indexOfStudent > -1) {
+                course.courseStudents.splice(indexOfStudent, 1);
+            }
+            Course.updateOne({_id: req.params.courseId}, {courseStudents: course.courseStudents})
+            .then(() => res.redirect('/me/courses'))
+            .catch(next);
+        })
+        .catch(next);
+    }
 }
 
 module.exports = new CourseController();

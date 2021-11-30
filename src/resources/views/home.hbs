@@ -30,7 +30,7 @@
         </div>
           
         <div id="content" class="mt-4 container-fluid">
-            <div class="courses-list">
+            <div class="courses-list" id="courseList">
                 <div class="course-list__header">
                   <h1 class="course-list__title mt-5">DANH SÁCH KHÓA HỌC</h1>
                   
@@ -46,9 +46,11 @@
                             Loại khóa học
                         </button>
                         <ul class="dropdown-menu dropdown-menu-dark course-list__dropdown-list" aria-labelledby="course-list__filter">           
-                          {{#each coursetypes}}
-                          <li><div class="dropdown-item course-filter-type-item">{{this.name}}</div></li>
-                          {{/each}}
+                          <div class="course-filter-type-items">
+                            {{#each coursetypes}}
+                            <li><div class="dropdown-item course-filter-type-item">{{this.name}}</div></li>
+                            {{/each}}
+                          </div>
                           <li><hr class="dropdown-divider"></li>
                           <li><div class="dropdown-item course-filter-type-item active">Tất cả</div></li>
                         </ul>

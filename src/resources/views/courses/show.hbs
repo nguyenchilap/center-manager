@@ -18,8 +18,9 @@
 
                     <div class="col-4 d-flex">
                         {{#if (checkStudentInCourse user._id course.courseStudents)}}
-                        <button type="button" class="btn btn-outline-dark btn-register-course" disabled>
-                            ĐÃ ĐĂNG KÍ  
+                        <button type="button" class="btn btn-outline-danger btn-de-register-course" 
+                        data-bs-toggle="modal" data-bs-target="#deRegisterConfirmModal">
+                            HỦY ĐĂNG KÍ  
                         </button>
                         {{else}}
                         <button type="button" class="btn btn-outline-dark btn-register-course" 
@@ -133,7 +134,27 @@
   </div>
 </div>
 
+<div class="modal modal-confirm" id="deRegisterConfirmModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">HỦY ĐĂNG KÍ KHÓA HỌC</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <p>Bạn có muốn hủy đăng kí khóa học này không?</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-light" data-bs-dismiss="modal">Đóng</button>
+        <button type="button" class="btn btn-danger btn-confirm-de-register-course">Tiếp tục</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 <form method="POST" name="register-course" action="/courses/register/{{course._id}}/{{user._id}}" style="display: none;" >
+</form>
+<form method="POST" name="de-register-course" action="/courses/de-register/{{course._id}}/{{user._id}}" style="display: none;" >
 </form>
 
 <script src="/js/comment-course.js"></script>
@@ -156,6 +177,11 @@
             //Confirm register Clicked
             $('.btn-confirm-register-course').click(function(){
                 $('form[name="register-course"]').submit();
+            });
+
+            //Confirm de-register Clicked
+            $('.btn-confirm-de-register-course').click(function(){
+                $('form[name="de-register-course"]').submit();
             });
 
             //Confirm Signin Clicked

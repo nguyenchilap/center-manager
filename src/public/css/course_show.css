@@ -65,12 +65,15 @@
   border-radius: 8px;
   display: flex; }
 
+.course-info .btn-de-register-course,
 .course-info .btn-register-course {
   font-weight: 700;
   border-radius: 8px;
-  border: 1px solid var(--black-color);
   margin: 0 0 auto auto;
   padding: 8px; }
+
+.course-info .btn-register-course {
+  border: 1px solid var(--black-color); }
 
 .course-info__name {
   font-size: 2.4rem;
