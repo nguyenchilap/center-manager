@@ -1,4 +1,24 @@
 <div id="main-body" class="container">
+        {{#if notiMessage}}
+        <div class="modal modal-noti-message" tabindex="-1" style="display: block;">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title">Thông báo</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body">
+                {{removePercent notiMessage}}
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary btn-modal-noti-close">Close</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        {{/if}}
+
+
         <div id="slider" class="carousel slide" data-bs-ride="carousel">
             <div class="carousel-indicators">
               <button type="button" data-bs-target="#slider" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
@@ -87,13 +107,15 @@
                         </a>
                         <div class="card-body course-item__body">
                           <h3 class="card-title course-item__title">{{this.name}}</h3>
-                          <p class="card-text course-item__description">{{this.description}}</p>
-                          <div class="d-flex card-text course-item__rate">
-                             <i class="fas fa-star course-item__rating active"></i>
-                             <i class="fas fa-star course-item__rating"></i>
-                             <i class="fas fa-star course-item__rating"></i>
-                             <i class="fas fa-star course-item__rating"></i>
-                             <i class="fas fa-star course-item__rating"></i>
+                          <div class="card-text course-item__date">Ngày: {{modifyDate this.createdAt}}</div>
+                          <p class="card-text course-item__description mt-3">{{this.description}}</p>
+                          <div class="card-text course-item__rate">
+                              <i class="fas fa-star course-item__rating active"></i>
+                              {{#if this.rated}}
+                                  <div class="course-item__rate-num">{{this.rated}}</div>
+                              {{else}}
+                                  <div class="course-item__rate-num">Chưa có đánh giá</div>
+                              {{/if}}
                           </div>
                           <p class="card-text course-item__price">{{this.price}} đ</p>
                           <div class="course-item__button ms-auto">
@@ -189,5 +211,10 @@
             $('.btn-close-modal-confirm').click();
             $('.modal__sign-in').addClass('active');
         });
+
+        //Close noti modal
+        $('.btn-modal-noti-close').click(function(){
+            $('.modal-noti-message').css('display','none');
+        })
     })
 </script>

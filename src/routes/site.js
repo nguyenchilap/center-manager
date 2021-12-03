@@ -7,6 +7,8 @@ const siteController = require('../app/controllers/SiteController');
 //define route
 router.get('/', siteController.index);
 
-router.post('/', passport.authenticate('local', { failureFlash: true }), siteController.login);
+router.post('/', passport.authenticate('local', { failureFlash: true, 
+                                                failureRedirect: '/?notiMessage=Tên đăng nhập hoặc mật khẩu không đúng' 
+                                            }), siteController.login);
 
 module.exports = router;

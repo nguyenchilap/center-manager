@@ -1,7 +1,7 @@
 document.addEventListener('DOMContentLoaded', function(){
     //auto fit height text-area
     $("textarea").each(function () {
-        this.setAttribute("style", "height:" + (this.scrollHeight) + "px;overflow-y:hidden;");
+        this.setAttribute("style", "overflow-y:hidden;");
       }).on("input", function () {
         this.style.height = "auto";
         this.style.height = (this.scrollHeight) + "px";
@@ -18,7 +18,7 @@ document.addEventListener('DOMContentLoaded', function(){
             function(res){
                 const d = new Date(Date.now());
                 $('.course-comments__items-wrapper').append(`
-                    <div class="course-comments__item row mb-5">
+                    <div class="course-comments__item row">
                         <div class="col-1" style="padding: 0">
                             <div class="course-comments__item-avatar" style="background-image: url(${$('.user_drop-down-avatar').attr('src')});"></div>
                         </div>

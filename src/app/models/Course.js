@@ -23,6 +23,7 @@ const Course = new Schema({
         [{
             studentId: {type: Schema.Types.ObjectId},
             result: {type: String, default: 'none'},
+            rate: {type: Number},
             registerAt: {type: Date, default: Date.now()}
         }],
     createBy: {type: Schema.Types.ObjectId, ref:'Manager'},

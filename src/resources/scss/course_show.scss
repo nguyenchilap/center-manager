@@ -24,6 +24,20 @@
     display: flex;
 }
 
+.course-info__rating{
+    display: flex;
+}
+
+.course-info__rating-star{
+    padding: 4px;
+    cursor: pointer;
+}
+
+.course-info__rating-star.active{
+    color: var(--star-color);
+}
+
+
 .course-info .btn-de-register-course,
 .course-info .btn-register-course{
     font-weight: 700;
@@ -59,6 +73,34 @@
     margin-top: 18px;
 }
 
+.course-info__register-count{
+    display: flex;
+}
+
+.course-info__register-pics{
+    display: flex;
+}
+
+.register-pic-item{
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: 100%;
+    position: relative;
+    border: 3px solid #f8f8f8;
+}
+
+.register-pic-item-etc{
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    position: relative;
+    border: 3px solid #f8f8f8;
+    background-color: #d8d8d8;
+}
+
 //COURSE COMMENTS
 .course-comments{
     color: var(--text-color);
@@ -76,7 +118,7 @@
 
 .course-comments__buttons .btn{
     height: 32px;
-    margin: auto 0 0 auto;
+    margin: 0 0 auto auto;
     background-color: #000000;
     border-color: unset;
     font-weight: 600;
@@ -86,6 +128,12 @@
 
 .course-comments__item{
     margin-left: -8px;
+    padding: 8px 0 12px 8px;
+    border-radius: 10px;
+}
+
+.course-comments__item:hover{
+    background-color: rgb(224, 224, 224);
 }
 
 .course-comments__item-avatar{
@@ -116,6 +164,33 @@
     font-style: italic;
     font-weight: 300;
 }
+
+.course-comments__input{
+    background: none;
+    border: none;
+    border-bottom: 1px solid;
+    outline: none;
+}
+
+.btn-edit-comment{
+    margin-left: auto;
+    padding: 28px 16px;
+    cursor: pointer;
+}
+
+.btn-edit-comment:hover{
+    color: #9a75e2;
+}
+
+.btn-del-comment{
+    padding: 28px 16px;
+    cursor: pointer;
+}
+
+.btn-del-comment:hover{
+    color: rgb(160, 0, 0);
+}
+
 
 
 

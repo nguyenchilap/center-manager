@@ -1,6 +1,7 @@
 :root {
   --primary-dark-color: #221e27;
   --primary-dark-hover-color: #525252;
+  --star-color: #ff7600;
   --primary-color: #bcd0e0;
   --white-color: #fff;
   --black-color: #000;
@@ -248,17 +249,25 @@ body {
   text-overflow: ellipsis;
   overflow: hidden;
   font-weight: 400;
-  min-height: 44px; }
+  min-height: 36px; }
+
+.course-item__date {
+  font-size: 1.2rem; }
 
 .course-item__rate {
-  font-size: 1.2rem; }
+  font-size: 1.2rem;
+  display: flex;
+  align-items: center; }
 
 .course-item__rating {
   margin-right: 6px;
   color: #6e6e6e; }
 
 .course-item__rating.active {
-  color: #f2ff41; }
+  color: var(--star-color); }
+
+.course-item__rate-num {
+  font-size: 1.6rem; }
 
 .course-item__price {
   margin-left: auto;
@@ -311,6 +320,9 @@ body {
 #date {
   display: flex;
   justify-content: space-between; }
+
+.modal__sign-up .modal-content {
+  top: 0; }
 
 .date__field {
   width: 30%; }

@@ -5,7 +5,9 @@
             <span class="navbar-brand__name">Edu Center</span>
         </a>
         <div class="navbar-pages" href="/">
+            {{#if user}}
             <a class="navbar-page__item" href="/me/courses">MY COURSES</a>
+            {{/if}}
             <a class="navbar-page__item">TEACHERS</a>
         </div>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -152,3 +154,4 @@
             $('form[name="logOut"]').submit();
         })
 </script>
+<script src="/js/login.js"></script>

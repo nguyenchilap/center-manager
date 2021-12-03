@@ -6,6 +6,15 @@
                 </div>
                 <div class="row">
                     <div class="col-8">
+                        {{#if currentStudent}}
+                        <div class="card-text course-info__rating" rated="{{currentStudent.rate}}">
+                            <i class="fas fa-star course-info__rating-star" data-bs-toggle="modal" data-bs-target="#rateConfirmModal"></i>
+                            <i class="fas fa-star course-info__rating-star" data-bs-toggle="modal" data-bs-target="#rateConfirmModal"></i>
+                            <i class="fas fa-star course-info__rating-star" data-bs-toggle="modal" data-bs-target="#rateConfirmModal"></i>
+                            <i class="fas fa-star course-info__rating-star" data-bs-toggle="modal" data-bs-target="#rateConfirmModal"></i>
+                            <i class="fas fa-star course-info__rating-star" data-bs-toggle="modal" data-bs-target="#rateConfirmModal"></i>
+                        </div>
+                        {{/if}}
                         <div class="course-info__component course-info__name">{{course.name}}</div>
                         <div class="course-info__component course-info__type">
                             {{#each course.courseTypes}}
@@ -27,6 +36,17 @@
                         data-bs-toggle="modal" data-bs-target="#registerConfirmModal">
                             ĐĂNG KÍ NGAY
                         </button>
+                        {{/if}}
+                    </div>
+                </div>
+                <div class="course-info__component course-info__price">Giá: {{course.price}}đ</div>
+                <div class="course-info__component course-info__register-count">
+                    <div class="course-info__register-pics" maxRenderStudents="{{maxRenderStudents}}">
+                        {{#each course.courseStudents}}
+                        <div class="register-pic-item" style="background-image: url({{this.img}});"></div>
+                        {{/each}}
+                        {{#if (checkCompareLarger course.courseStudents.length maxRenderStudents)}}
+                        <div class="register-pic-item-etc">+{{sub course.courseStudents.length maxRenderStudents}}</div>
                         {{/if}}
                     </div>
                 </div>
@@ -59,7 +79,7 @@
             <div class="course-comments">
                 <div class="course-comments__title">Bình luận</div>
                 <div class="row panel">
-                    <textarea type="text" name="comment" class="col-10 course-comments__input" placeholder="Thêm bình luận công khai...."></textarea>
+                    <textarea type="text" name="comment" rows="1" class="col-10 course-comments__input" placeholder="Thêm bình luận công khai...."></textarea>
                     <div class="course-comments__buttons col-2">
                         {{#if user}}
                         <input name="course-id" value="{{course._id}}" style="display: none;"/>
@@ -73,7 +93,7 @@
                 </div>
                 <div class="row panel course-comments__items-wrapper">
                     {{#each course.courseComments}}
-                    <div class="course-comments__item row mb-5">
+                    <div class="course-comments__item row">
                         <div class="col-1" style="padding: 0">
                             <div class="course-comments__item-avatar" style="background-image: url({{this.img}});"></div>
                         </div>
@@ -90,6 +110,12 @@
                                 </div>
                             </div>
                         </div>
+                        {{#if (checkEqualValues this.accountId ../user._id)}}
+                        <div class="col-3 d-flex align-items-center ms-auto">
+                            <i class="fas fa-pen btn-edit-comment"></i>
+                            <i class="fas fa-trash-alt btn-del-comment"></i>
+                        </div>
+                        {{/if}}
                     </div>
                     {{/each}}
                 </div>
@@ -152,6 +178,25 @@
   </div>
 </div>
 
+<form class="modal modal-confirm" id="rateConfirmModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" action="/courses/rate/{{course._id}}/{{user._id}}" method="POST">
+    <input name="rate" style="display: none;"/>
+    <div class="modal-dialog">
+        <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title">ĐÁNH GIÁ KHÓA HỌC</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <p></p>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-light" data-bs-dismiss="modal">Đóng</button>
+            <button type="submit" class="btn btn-success btn-confirm-rate-course">Tiếp tục</button>
+        </div>
+        </div>
+    </div>
+</form>
+
 <form method="POST" name="register-course" action="/courses/register/{{course._id}}/{{user._id}}" style="display: none;" >
 </form>
 <form method="POST" name="de-register-course" action="/courses/de-register/{{course._id}}/{{user._id}}" style="display: none;" >
@@ -162,7 +207,6 @@
 <script>
         $(document).ready(function(){
             $('head title').html(`Khóa ${$('.course-info__name').html()}`);
-
 
             //Render Register btn
             if(!$('.navbar__btn-sign-in').html()){
@@ -188,6 +232,50 @@
             $('.btn-confirm-open-sign-in').click(function(){
                 $('.btn-close-modal-confirm').click();
                 $('.modal__sign-in').addClass('active');
+            });
+
+            //CSS students list
+            const maxRenderStudents = $('.course-info__register-pics').attr('maxRenderStudents');
+            $('.register-pic-item').each(function(index){
+                if(index >= maxRenderStudents)
+                    $(this).css('display', 'none');
+                $(this).css('left', `${-index * 8}px`);
+                $(this).css('z-index', `${index}`);
+            });
+
+            $('.register-pic-item-etc').css('left', `${-maxRenderStudents * 8}px`);
+            $('.register-pic-item-etc').css('z-index', `${maxRenderStudents}`);
+
+
+            //Render rated
+            const rated = $('.course-info__rating').attr('rated');
+            function renderRated(){
+                $('.course-info__rating-star').each(function(){
+                    if ($(this).index() < Number(rated)) $(this).addClass('active');
+                })
+            }
+            renderRated();
+
+            //Rating on hover
+            $('.course-info__rating-star').hover(function(){
+                $('.course-info__rating-star').removeClass('active');
+                const curIndex = $(this).index();
+                $('.course-info__rating-star').each(function(){
+                    if ($(this).index() <= curIndex)
+                    $(this).addClass('active');
+                })
+            }, function(){
+                $('.course-info__rating-star').removeClass('active');
+                $('.course-info__rating-star').each(function(){
+                    if ($(this).index() < Number(rated)) $(this).addClass('active');
+                })
+            });
+
+            //Rating on click 
+            $('.course-info__rating-star').click(function(){
+                const rate = $(this).index() + 1;
+                $('input[name="rate"]').attr('value', rate);
+                $('#rateConfirmModal .modal-body p').html(`Đánh giá ${rate} sao cho khóa học ?`);
             });
         })
 </script>

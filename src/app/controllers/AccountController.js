@@ -26,7 +26,7 @@ class AccountController{
             });
 
             student.save()
-            .then(() => res.send(`<script>alert("Đăng kí thành công !!!"); window.location.href = "/"; </script>`))
+            .then(() => res.redirect('/?notiMessage=Đăng kí thành công!!!'))
             .catch(next);
         })
     }

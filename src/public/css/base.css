@@ -1,6 +1,7 @@
 :root {
   --primary-dark-color: #221e27;
   --primary-dark-hover-color: #525252;
+  --star-color: #ff7600;
   --primary-color: #bcd0e0;
   --white-color: #fff;
   --black-color: #000;
@@ -67,7 +68,8 @@ html {
 
 .modal {
   background-color: rgba(0, 0, 0, 0.7);
-  font-size: 1.4rem; }
+  font-size: 1.4rem;
+  color: var(--text-color); }
 
 .modal-title {
   font-size: 2.2rem;
@@ -76,6 +78,10 @@ html {
 
 .modal-body {
   padding: 3rem; }
+
+.modal-content {
+  position: relative;
+  top: 50px; }
 
 .modal-header {
   background-color: var(--primary-color); }
