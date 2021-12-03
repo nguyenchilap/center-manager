@@ -3,7 +3,7 @@ const mongooseDelete = require('mongoose-delete');
 
 const Schema = mongoose.Schema;
 
-const Course = new Schema({
+const CourseSchema = new Schema({
     name: {type: String, required: true},
     description: {type: String},
     img: {type: String, default: 'none'},
@@ -14,7 +14,7 @@ const Course = new Schema({
     courseLessons: [],
     courseComments: 
         [{
-            accountId: {type: Schema.Types.ObjectId}, 
+            studentId: {type: Schema.Types.ObjectId}, 
             studentName: {type: String}, 
             comment: {type: String},
             commentAt: {type: Date, default: Date.now()},
@@ -32,9 +32,9 @@ const Course = new Schema({
 } );
 
 //ADD PLUGIN
-Course.plugin(mongooseDelete, { 
+CourseSchema.plugin(mongooseDelete, { 
     deletedAt : true,
     overrideMethods: 'all',
 });
 
-module.exports = mongoose.model('Course', Course);
+module.exports = mongoose.model('Course', CourseSchema);

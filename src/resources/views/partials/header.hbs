@@ -20,12 +20,8 @@
                     <ul class="navbar-nav">
                         <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle navbar-user__wrapper" href="#" id="navbarDarkDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            {{#if (isNone userInfo.img)}}
-                                <img class="user_drop-down-avatar" src="/img/users/default-avatar.jpg" alt="avatar-img">
-                            {{else}}
-                                <img class="user_drop-down-avatar" src="{{userInfo.img}} " alt="avatar-img">  
-                            {{/if}}
-                            {{userInfo.name}}
+                            <img class="user_drop-down-avatar" src="{{user.img}}" alt="avatar-img">
+                            {{user.name}}
                         </a>
                         <ul class="dropdown-menu dropdown-menu-dark user__drop-down" aria-labelledby="navbarDarkDropdownMenuLink">
                             <li><a class="dropdown-item user__drop-down-item" href="/me/courses">Khóa học của tôi</a></li>

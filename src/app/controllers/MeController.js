@@ -3,7 +3,6 @@ const Course = require('../models/Course');
 const CourseType = require('../models/CourseType');
 
 const {mongooseToObject, multiMongooseToObject} = require('../../utils/mongoose');
-const {getUser} = require('../../utils/getUser');
 const {uploadStudentImage} = require('../../config/firebase');
 const ObjectId = require('mongoose').Types.ObjectId; 
 
@@ -13,12 +12,11 @@ class MeController{
 
     // [GET] /me/account
     edit(req, res, next){
-        Student.findOne({account: req.user})
+        Student.findOne({_id: req.user._id})
         .then(student => {
             const studentObject = mongooseToObject(student);
             res.render('me/account', {
-                user: req.user,
-                userInfo: studentObject,
+                user: mongooseToObject(student),
                 userBirth: {
                     day: studentObject.birth.split('/')[0],
                     month: studentObject.birth.split('/')[1],
@@ -32,8 +30,6 @@ class MeController{
     // [PUT] /me/account/edit
     update(req, res, next){
         const formData = req.body;
-        const user = req.user;
-
         const newInfo = {
             name: formData.name,
             email: formData.email,
@@ -41,12 +37,8 @@ class MeController{
             birth: `${formData["DOB-day"]}/${formData["DOB-month"]}/${formData["DOB-year"]}`,
         };
 
-        Student.findOne({account: ObjectId(user._id)})
-        .then(student => {
-            Student.updateOne({ _id: student._id }, newInfo)
-            .then(() => res.redirect('back'))
-            .catch(next);
-        })
+        Student.updateOne({_id: req.user._id}, newInfo)
+        .then(() => res.redirect('back'))
         .catch(next);
     }
 
@@ -56,9 +48,9 @@ class MeController{
         async function getUrlImg(){
             return await uploadStudentImage(`src/public/img/users/${req.user._id}/${fileData.originalname}`, fileData.originalname, req.user._id);
         }
-        Promise.all([Student.findOne({account: req.user}),getUrlImg()])
-        .then(([student, url]) => {
-            Student.updateOne({ _id: student._id }, {img: url})
+        getUrlImg()
+        .then(url => {
+            Student.updateOne({ _id: req.user._id }, {img: url})
             .then(() => res.redirect('back'))
             .catch(next);
         })
@@ -67,7 +59,7 @@ class MeController{
 
     // [GET] /me/courses
     showMyCourses(req, res, next){
-        Promise.all([Course.find({"courseStudents.studentId": Object(req.user._id)}), Student.findOne({account: req.user}), CourseType.find()])
+        Promise.all([Course.find({"courseStudents.studentId": Object(req.user._id)}), Student.findOne({_id: req.user._id}), CourseType.find()])
         .then(([courses, student, coursetypes]) => {
             let courseObjects = multiMongooseToObject(courses);
             courseObjects.myRegistry = courseObjects.map((courseObject) => {
@@ -76,8 +68,7 @@ class MeController{
             res.render('me/courses',{ 
                 courses: courseObjects,
                 coursetypes: multiMongooseToObject(coursetypes),
-                user: req.user,
-                userInfo: mongooseToObject(student),
+                user: mongooseToObject(student),
                 maxItemPerPage: 6,
             });
         })

@@ -1,6 +1,6 @@
 const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
-const Account = require('../../app/models/Account');
+const Student = require('../../app/models/Student');
 const bcrypt = require('bcryptjs');
 
 passport.serializeUser(function(user, done) {
@@ -12,12 +12,12 @@ passport.deserializeUser(function(user, done) {
 });
 
 passport.use(new LocalStrategy(function(username, password, done) {
-    Account.findOne({ username: username }, function (err, user) {
+    Student.findOne({"account.username": username }, function (err, user) {
         if (err) { return done(err); }
         if (!user) {
             return done(null, false, { message: 'Username not found' });
         }
-        if (!bcrypt.compareSync(password, user.password)) {
+        if (!bcrypt.compareSync(password, user.account.password)) {
             return done(null, false, { message: 'Incorrect password' });
         }
         return done(null, user);

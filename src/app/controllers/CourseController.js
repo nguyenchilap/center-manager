@@ -7,11 +7,12 @@ const {mongooseToObject, multiMongooseToObject} = require('../../utils/mongoose'
 class CourseController{
     //[GET] /courses/show/:id
     show(req, res, next){
-        Promise.all([Course.findOne({_id: req.params.id}), Student.findOne({account: req.user})])
+        const user = req.user ? req.user : {};
+        Promise.all([Course.findOne({_id: req.params.id}), Student.findOne({_id: user._id})])
         .then(([course, student]) => {
             let courseObject = mongooseToObject(course);
             const commentAccountIds = courseObject.courseComments.map(function(item, index){
-                    return ObjectId(item.accountId);
+                return ObjectId(item.studentId);
             });
             const registerAccountIds = courseObject.courseStudents.map(function(item, index){
                 return ObjectId(item.studentId);
@@ -21,29 +22,32 @@ class CourseController{
             if (req.user)
                 currentStudent = courseObject.courseStudents.find(student => student.studentId.toString() === req.user._id.toString());
 
-            Promise.all([Student.find({account: {$in: commentAccountIds}}), Student.find({account: {$in: registerAccountIds}})])
+            Promise.all([Student.find({_id: {$in: commentAccountIds}}), Student.find({_id: {$in: registerAccountIds}})])
             .then(([commentedStudents, registeredStudents]) => {
                 const commentedStudentObjects = multiMongooseToObject(commentedStudents);
                 const registeredStudentObjects = multiMongooseToObject(registeredStudents);
                 
-                //render image of comments
-                const commentImages = commentAccountIds.map((accountId) => {
-                    return commentedStudentObjects.find(studentObject => studentObject.account.toString() === accountId.toString()).img;
-                });
-                //render image of registered students
-                const registerImages = registerAccountIds.map((accountId) => {
-                    return registeredStudentObjects.find(studentObject => studentObject.account.toString() === accountId.toString()).img;
-                });
-                
-                courseObject.courseComments.forEach((courseComment,index) => {courseComment.img = commentImages[index]});
-                courseObject.courseStudents.forEach((courseStudent,index) => {courseStudent.img = registerImages[index]});
+                if (commentedStudentObjects.length){
+                    //render image of comments
+                    const commentImages = commentAccountIds.map((accountId) => {
+                        return commentedStudentObjects.find(studentObject => studentObject._id.toString() === accountId.toString()).img;
+                    });
+                    courseObject.courseComments.forEach((courseComment,index) => {courseComment.img = commentImages[index]});
+                }
 
+                if (registeredStudentObjects.length){
+                    //render image of registered students
+                    const registerImages = registerAccountIds.map((accountId) => {
+                        return registeredStudentObjects.find(studentObject => studentObject._id.toString() === accountId.toString()).img;
+                    });
+                    courseObject.courseStudents.forEach((courseStudent,index) => {courseStudent.img = registerImages[index]});
+                }
+                
                 res.render('courses/show',{
                     course: courseObject,
                     currentStudent,
                     maxRenderStudents: 4,
-                    user: req.user,
-                    userInfo: mongooseToObject(student),
+                    user: mongooseToObject(student),
                 })
             })
             .catch(next);
@@ -56,7 +60,7 @@ class CourseController{
         Course.updateOne({_id: req.params.id}, {
             $push: {
                 courseComments: {
-                    accountId: req.body.accountId,
+                    studentId: req.body.studentId,
                     studentName: req.body.studentName,
                     comment: req.body.comment,
                 }

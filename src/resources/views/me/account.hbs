@@ -6,11 +6,7 @@
                 </h1>
                 <form class="customize__avatar" enctype="multipart/form-data" method="POST" action="/me/account/edit-avatar">
                     <div class="customize__edit-img">
-                        {{#if (isNone userInfo.img)}}
-                                <img class="uploaded-img" src="/img/users/default-avatar.jpg" alt="avatar-img">
-                        {{else}}
-                                <img class="uploaded-img" src="{{userInfo.img}}" alt="avatar-img">
-                        {{/if}}
+                        <img class="uploaded-img" src="{{user.img}}" alt="avatar-img">
                         <img src="/img/users/camera.png" alt="camera-img" class="customize__avatar-icon">
                     </div>
                     <input type="file" accept="image/*" name="img" class="customize__input-file">
@@ -22,19 +18,19 @@
                 <div class="customize__name">
                     <h3 class="input-label">Họ tên</h3>
                     <div class="customize__edit">
-                        <input type="text" name="name" class="customize__input-text" maxlength="70px" value="{{userInfo.name}}" placeholder="Nhập tên của bạn">
+                        <input type="text" name="name" class="customize__input-text" maxlength="70px" value="{{user.name}}" placeholder="Nhập tên của bạn">
                     </div>
                 </div>
                 <div class="customize__email mt-5">
                     <h3 class="input-label">Email</h3>
                     <div class="customize__edit">
-                        <input type="text" name="email" class="customize__input-text" maxlength="70px" value="{{userInfo.email}}" placeholder="Nhập email của bạn">
+                        <input type="text" name="email" class="customize__input-text" maxlength="70px" value="{{user.email}}" placeholder="Nhập email của bạn">
                     </div>
                 </div>
                 <div class="customize__phone-number mt-5">
                     <h3 class="input-label">Số điện thoại</h3>
                     <div class="customize__edit">
-                        <input type="text" name="phone" class="customize__input-text" maxlength="70px" value="{{userInfo.phone}}" placeholder="Nhập số điện thoại của bạn">
+                        <input type="text" name="phone" class="customize__input-text" maxlength="70px" value="{{user.phone}}" placeholder="Nhập số điện thoại của bạn">
                     </div>
                 </div>
                 <div class="customize__date-of-birth mt-5">

@@ -83,8 +83,8 @@
                     <div class="course-comments__buttons col-2">
                         {{#if user}}
                         <input name="course-id" value="{{course._id}}" style="display: none;"/>
-                        <input name="account-id" value="{{user._id}}" style="display: none;"/>
-                        <input name="student-name" value="{{userInfo.name}}" style="display: none;"/>
+                        <input name="student-id" value="{{user._id}}" style="display: none;"/>
+                        <input name="student-name" value="{{user.name}}" style="display: none;"/>
                         <button type="submit" class="btn btn-primary btn-comment">BÌNH LUẬN</button>
                         {{else}}
                         <button class="btn btn-primary disabled">BÌNH LUẬN</button>
@@ -110,7 +110,7 @@
                                 </div>
                             </div>
                         </div>
-                        {{#if (checkEqualValues this.accountId ../user._id)}}
+                        {{#if (checkEqualValues this.studentId ../user._id)}}
                         <div class="col-3 d-flex align-items-center ms-auto">
                             <i class="fas fa-pen btn-edit-comment"></i>
                             <i class="fas fa-trash-alt btn-del-comment"></i>

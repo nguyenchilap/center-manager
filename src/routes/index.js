@@ -2,7 +2,6 @@ const accountRouter = require('./accounts');
 const siteRouter = require('./site');
 const meRouter = require('./me');
 const courseRouter = require('./courses');
-const passport = require('../config/passport');
 
 function route(app){
     app.use('/courses', courseRouter);
@@ -11,7 +10,7 @@ function route(app){
 
     app.post('/logout', function(req, res){
         req.logout();
-        res.redirect('back');
+        res.redirect('/');
     });
     app.use('/', siteRouter);
     

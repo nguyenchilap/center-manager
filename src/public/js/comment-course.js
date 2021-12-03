@@ -11,7 +11,7 @@ document.addEventListener('DOMContentLoaded', function(){
     $('.btn-comment').click(function(){
         $.post(`/courses/show/${$('input[name ="course-id"]').attr('value')}/push-comment`,
             {
-                accountId: $('input[name ="account-id"]').attr('value'),
+                studentId: $('input[name ="student-id"]').attr('value'),
                 studentName: $('input[name ="student-name"]').attr('value'),
                 comment: $('textarea[name ="comment"]').val(),
             },
