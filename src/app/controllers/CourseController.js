@@ -32,7 +32,14 @@ class CourseController{
                     const commentImages = commentAccountIds.map((accountId) => {
                         return commentedStudentObjects.find(studentObject => studentObject._id.toString() === accountId.toString()).img;
                     });
-                    courseObject.courseComments.forEach((courseComment,index) => {courseComment.img = commentImages[index]});
+                    //render name of comments
+                    const commentNames = commentAccountIds.map((accountId) => {
+                        return commentedStudentObjects.find(studentObject => studentObject._id.toString() === accountId.toString()).name;
+                    });
+                    courseObject.courseComments.forEach((courseComment,index) => {
+                        courseComment.img = commentImages[index];
+                        courseComment.studentName = commentNames[index];
+                    });
                 }
 
                 if (registeredStudentObjects.length){
