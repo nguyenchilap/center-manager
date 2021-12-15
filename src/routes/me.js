@@ -10,7 +10,7 @@ const meController = require('../app/controllers/MeController');
 
 //define route
 router.get('/courses', meController.showMyCourses);
-router.get('/account', meController.edit);
+router.get('/account', meController.showMyInfo);
 router.put('/account/edit', meController.update);
 router.post('/account/edit-avatar', uploadAvatar.single('img'), meController.uploadImg);
 

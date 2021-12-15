@@ -1,6 +1,4 @@
 document.addEventListener('DOMContentLoaded', function(){
-    inputPassword = document.querySelector('#sign-up__password');
-    inputConfirmPassword = document.querySelector('#sign-up__confirm-password');
 
     modalCourseDetails = document.querySelector('.modal__course-detail');
     modalSignIn = $('.modal__sign-in');
@@ -28,14 +26,6 @@ document.addEventListener('DOMContentLoaded', function(){
     //close modal 
     $('.btn-close-modal').click(function(){
         $(this).closest('.modal').removeClass('active');
-    });
-
-    //Sign-up submit clicked
-    $('.modal__sign-up-btn-submit').click(function(){
-        if (inputPassword.value != inputConfirmPassword.value){
-          alert('Mật khẩu khác nhận không khớp !!!!');
-          e.preventDefault();
-      }
     });
 
 })

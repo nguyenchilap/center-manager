@@ -338,6 +338,12 @@ body {
   font-size: 1.4rem;
   color: var(--white-color); }
 
+.footer__partial {
+  flex: 1; }
+
+.footer__partial:first-child {
+  flex: 1.9; }
+
 .footer__partial-title {
   font-weight: 700;
   font-size: 1.8rem;
@@ -345,7 +351,9 @@ body {
 
 .footer__partial-content {
   display: flex;
-  flex-direction: column; }
+  flex-direction: column;
+  text-align: justify;
+  margin-right: 134px; }
 
 .footer__partial-content .content__item {
   margin-top: 8px;

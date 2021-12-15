@@ -42,6 +42,7 @@
                             <input type="text" name="DOB-year" class="customize__input-text-sm" maxlength="4px" value="{{userBirth.year}}" placeholder="YYYY">
                         </div>
                     </div>
+                    <div class="noti-warning noti-date-invalid mt-3" style="display: none;">(*) Invalid Date !!!</div>
                 </div>
                 <div class="btn btn-outline-light customize__edit-btn" data-bs-toggle="modal" data-bs-target="#editConfirmModal">Confirm Edit</div>
             </form>
@@ -88,6 +89,6 @@
 
         $('.btn-confirm-edit-course').click(function(){
             $('.customize__body').submit();
-        })
+        })  
     })
 </script>

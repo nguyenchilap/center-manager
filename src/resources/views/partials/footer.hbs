@@ -1,62 +1,65 @@
 <div class="container">
     <div class="row">
-        <div class="col-4">
-            <div class="footer__about footer__partial">
+        <div class="footer__partial">
+            <div class="footer__about">
                 <div class="footer__about-title footer__partial-title">
                     ABOUT
                 </div>
                 <div class="footer__about-content footer__partial-content">
-                    
+                    Website created for student's courses management. Choose your most compatible courses and start learning now !! We got all you need here. Good luck !!
+                    <div>Developed by <a href="https://www.facebook.com/nguyenchilapk18/">Nguyen Chi Lap</a></div> 
                 </div>
             </div>
         </div>
-        <div class="col">
-            <div class="footer__categories footer__partial">
+        <div class="footer__partial">
+            <div class="footer__categories">
                 <div class="footer__categories-title footer__partial-title">
                     CATEGORIES
                 </div>
                 <div class="footer__categories-content footer__partial-content">
-                    <a class="categories__item content__item">Bootstrap</a>
-                    <a class="categories__item content__item">JavaScript</a>
-                    <a class="categories__item content__item">NodeJs/ExpressJs</a>
+                    <a href="https://getbootstrap.com/" target="_blank" class="categories__item content__item">Bootstrap</a>
+                    <a href="https://www.javascript.com/" target="_blank" class="categories__item content__item">JavaScript</a>
+                    <a href="http://expressjs.com/" target="_blank" class="categories__item content__item">NodeJs/ExpressJs</a>
                 </div>
             </div>
         </div>
-        <div class="col">
-            <div class="footer__links footer__partial">
+        <div class="footer__partial">
+            <div class="footer__links">
                 <div class="footer__links-title footer__partial-title">
                     HELPFUL LINKS
                 </div>
                 <div class="footer__links-content footer__partial-content">
-                    <a class="links__item content__item">Your Account</a>
-                    <a class="links__item content__item">Your Courses</a>
+                    {{#if user}}
+                        <a href="/me/courses" class="links__item content__item">Your Account</a>
+                        <a href="/me/account" class="links__item content__item">Your Courses</a>
+                    {{/if}}
                     <a class="links__item content__item">Help</a>
                 </div>
             </div>
         </div>
-        <div class="col">
-            <div class="footer__contacts footer__partial">
+        <div class="footer__partial">
+            <div class="footer__contacts">
                 <div class="footer__contacts-title footer__partial-title">
                     CONTACT
                 </div>
                 <div class="footer__contacts-content footer__partial-content">
-                    <a href="https://www.facebook.com/nguyenchilapk18/" class="contacts__item content__item">
+                    <a target="_blank" href="https://www.facebook.com/nguyenchilapk18/" class="contacts__item content__item">
                         <i class="fab fa-facebook-square contact-icon"></i>
                         Facebook
                     </a>
-                    <a class="contacts__item content__item" href="mailto:lapnguyen18620@gmail.com">
+                    <a class="contacts__item content__item" target="_blank" href="mailto:lapnguyen18620@gmail.com">
                         <i class="fab fa-google contact-icon"></i>
                         Gmail
                     </a>
-                    <a class="contacts__item content__item" href="mailto:18120435@student.hcmus.edu.vn">
+                    <a class="contacts__item content__item" target="_blank" href="mailto:18120435@student.hcmus.edu.vn">
                         <i class="fab fa-microsoft contact-icon"></i>
                         Outlook
                     </a>
-                    <a class="contacts__item content__item" href="https://github.com/nguyenchilap/center-manager">
+                    <a class="contacts__item content__item" target="_blank" href="https://github.com/nguyenchilap/center-manager">
                         <i class="fab fa-github contact-icon"></i>
                         Github
                     </a>
-                    <a class="contacts__item content__item" href="tel:+84901161641">
+                    <a class="contacts__item content__item" target="_blank" href="tel:+84901161641">
                         <i class="fas fa-phone-alt contact-icon"></i>
                         +84 901161641
                     </a>

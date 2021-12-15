@@ -3,7 +3,8 @@ const Course = require('../models/Course');
 const CourseType = require('../models/CourseType');
 const {mongooseToObject, multiMongooseToObject} = require('../../utils/mongoose');
 
-const ObjectId = require('mongoose').Types.ObjectId; 
+const siteRepo = require('../Repository/SiteRepository');
+const passport = require('../../config/passport');
 
 class SiteController{
 
@@ -12,34 +13,15 @@ class SiteController{
         const user = req.user ? req.user : {};
         Promise.all([Course.find(), CourseType.find(), Student.findOne({_id: user._id})])
         .then(([courses, coursetypes, student]) => {
-            let coursesObjects = multiMongooseToObject(courses);
-
-            coursesObjects.forEach(courseObject => {
-                //check registered
-                if (req.user){
-                    courseObject.courseStudents.every(courseStudent => {
-                        if (courseStudent.studentId.toString() === req.user._id){
-                            courseObject.registered = true;
-                            return false;
-                        }
-                        return true;
-                    });
-                }
-                //calc rated
-                let accumulator = 0;
-                let rateCount = 0;
-                courseObject.courseStudents.forEach(courseStudent => {
-                    if (courseStudent.rate) {
-                        accumulator = (accumulator*rateCount + courseStudent.rate)/(rateCount + 1);
-                        rateCount += 1;
-                    }
-                })
-                courseObject.rated = Math.round(accumulator*10)/10;
-            })
+            let courseObjects = multiMongooseToObject(courses);
+            courseObjects = siteRepo.calcRatedCourse(courseObjects);            
+            //check registered    
+            if (req.user){
+                courseObjects = siteRepo.checkRegisteredCourse(courseObjects, req.user);
+            }
             res.render('home', {
-                notiMessage: req.query.notiMessage,
                 user: mongooseToObject(student),
-                courses: coursesObjects,
+                courses: courseObjects,
                 coursetypes: multiMongooseToObject(coursetypes),
                 maxItemPerPage: 6,
             });
@@ -49,7 +31,27 @@ class SiteController{
 
     // [POST] /
     login(req, res, next){
-        res.redirect('back');
+        passport.authenticate('localLogin', function(err, user, info){
+            if (err) return next(err);
+            if (!user) res.json({notiMessage: info.message});
+            req.login(user, function(err){
+                if (err) return next(err);
+                res.json({
+                    user,
+                    redirect: '/',
+                })
+            })
+        })(req, res, next);
+    }
+
+    // [POST] /check-username
+    checkUsername(req, res, next){
+        Student.findOne({'account.username': req.body.username})
+        .then((student) => {
+            if (student) res.json({exists: true});
+            else res.json({exists: false});
+        })
+        .catch(next);
     }
 }
 
