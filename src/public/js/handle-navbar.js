@@ -1,4 +1,12 @@
 $(document).ready(function(){
+    //show Noti Message
+    showNotiMessage = (notiMessage) => {
+        $('.modal__sign-up').trigger('reset');
+        $('.btn-close-modal').click();
+        $('.modal-noti-message').css('display', 'block');
+        $('.modal-noti-message .modal-body').html(notiMessage);
+    }
+
     //handle sign-in
     $('.modal__sign-in-btn-submit').click(function(e){
         e.preventDefault();
@@ -100,4 +108,81 @@ $(document).ready(function(){
         checkValidDate();
     })
 
+
+    $('.modal__sign-up-btn-submit').click(function(e){
+        e.preventDefault();
+        $.post('/account/signup', $('.modal__sign-up').serialize(), function(res){
+            showNotiMessage(res.notiMessage);
+        })
+    })
+
+
+
+    //handle forgot password
+    let otpHandler;
+
+    sendEmail = () => {
+        $.post('/send-otp', {
+            username: $('input[name="username"]').val()
+        }, function(res){
+            otpHandler = res.otp;
+        })
+    }
+
+    $('.btn-open-forgot-password').click(function(){
+        if ($(this).html().includes('password')){
+            if (!$('input[name="username"]').val()) {
+                $('.noti-username-invalid').html('(*) Type your Username first !!!');
+                $('.noti-username-invalid').css('display', 'block');
+            }
+            else{
+                $('.modal__sign-in-forgot-password').addClass('active');
+                $(this).html("Don't need anymore");
+                $('.noti-username-invalid').css('display', 'none');
+                
+                //send Email
+                sendEmail();
+            }
+        }
+        else{
+            $('.modal__sign-in-forgot-password').removeClass('active');
+            $(this).html("Forgot password ?");
+        }
+    })
+
+    $('.btn-resend-otp').click(function(){
+        //send Email
+        sendEmail();
+    });
+
+    $('.btn-create-new-password').click(function(){
+        const inputOtp = $('input[name="otp"]');
+        const inputNewPassword = $('input[name="new-password"]');
+        let notiOtp = $('.noti-otp-invalid');
+        let notiPassword = $('.noti-new-password-invalid');
+
+        if (!inputOtp.val()) {
+            notiOtp.css('display', 'block');
+            notiOtp.html('(*) Invalid OTP !!!!');
+        }
+        else if (!inputNewPassword.val()) {
+            notiPassword.css('display', 'block');
+            notiPassword.html('(*) Invalid password !!!!');
+        }
+        else if (inputOtp.val() != otpHandler.toString()){
+            notiOtp.css('display', 'block');
+            notiOtp.html('(*) Unmatched OTP !!!!');
+        } 
+        else {
+            notiOtp.css('display', 'none');
+            notiPassword.css('display', 'none');
+
+            $.post('/change-password', {
+                username: $('input[name="username"]').val(),
+                password: $('input[name="new-password"]').val()
+            }, function(res){
+                showNotiMessage(res.notiMessage);
+            })
+        }
+    })
 })

@@ -57,20 +57,44 @@
         <button type="button" class="btn btn-light btn-switch-modal" data-bs-dismiss="modal">Sign up</button>
         </div>
         <div class="modal-body">
-        <div class="mb-3">
-            <label for="sign-in__user-name" class="form-label">User Name:</label>
-            <input type="text" name="username" class="form-control" id="sign-in__user-name" placeholder="Your username....">
-            <div class="noti-warning noti-username-invalid"></div>
-        </div>
-        <div class="mb-3">
-            <label for="password" class="form-label">Password:</label>
-            <input type="password" name="password" class="form-control" id="sign-in__password" placeholder="Your password....">
-            <div class="noti-warning noti-password-invalid"></div>
-        </div>
+            <div class="mb-3">
+                <label for="sign-in__user-name" class="form-label">User Name:</label>
+                <input type="text" name="username" class="form-control" id="sign-in__user-name" placeholder="Your username....">
+                <div class="noti-warning noti-username-invalid"></div>
+            </div>
+            <div class="mb-3">
+                <label for="password" class="form-label">Password:</label>
+                <input type="password" name="password" class="form-control" id="sign-in__password" placeholder="Your password....">
+                <div class="noti-warning noti-password-invalid"></div>
+            </div>
+            <div class="btn-open-forgot-password">
+                Forgot password ?
+            </div>
+            <div class="modal__sign-in-forgot-password">
+                <div class="mb-3">
+                    <div>
+                        <label for="otp" class="form-label noti-warning">Not receive yet ? Try again</label>
+                        <div class="btn btn-resend-otp">
+                            <i class="fas fa-sync-alt"></i>
+                        </div>
+                    </div>
+
+                    <input type="number" name="otp" class="form-control" placeholder="Verify OTP....">
+                    <div class="noti-warning noti-otp-invalid"></div>
+                </div>
+                <div class="mb-3">
+                    <label for="password" class="form-label">New Password:</label>
+                    <input type="password" name="new-password" class="form-control" placeholder="Your new password....">
+                    <div class="noti-warning noti-new-password-invalid"></div>
+                </div>
+                <div class="mb-1 mt-1 d-flex">
+                    <div class="btn btn-outline-dark btn-create-new-password">Confirm</div>
+                </div>
+            </div>
         </div>
         <div class="modal-footer">
-        <button type="button" class="btn btn-secondary btn-close-modal" data-bs-dismiss="modal">Close</button>
-        <button type="submit" class="btn btn-success modal__sign-in-btn-submit">Sign in</button>
+            <button type="button" class="btn btn-secondary btn-close-modal" data-bs-dismiss="modal">Close</button>
+            <button type="submit" class="btn btn-success modal__sign-in-btn-submit">Sign in</button>
         </div>
     </div>
     </div>
@@ -84,42 +108,41 @@
         <button type="button" class="btn btn-light btn-switch-modal" data-bs-dismiss="modal">Sign in</button>
         </div>
         <div class="modal-body">
-        <div class="mb-3">
-            <label for="sign-up__user-name" class="form-label">User Name:</label>
-            <input type="text" name="username" class="form-control" id="sign-up__user-name" placeholder="Your username...." required>
-            <div class="noti-warning noti-username-exists" style="display: none;">(*) Username already exists !!!</div>
-        </div>
-        <div class="mb-3">
-            <label for="password" class="form-label">Password:</label>
-            <input type="password" name="password" class="form-control" id="sign-up__password" placeholder="Your password...." required>
-        </div>
-        <div class="mb-3">
-            <label for="confirm-password" class="form-label">Confirm Password:</label>
-            <input type="password" name="confirm-password" class="form-control" id="sign-up__confirm-password" placeholder="Confirm your password...." required>
-            <div class="noti-warning noti-password-unmatched" style="display: none;">(*) Confirmed password unmatched !!!</div>
-        </div>
-        <div class="mb-3">
-            <label for="full-name" class="form-label">Full name:</label>
-            <input type="text" name="name" class="form-control" id="full-name" placeholder="Your full name...." required>
-        </div>
-        <div class="mb-3">
-            <label for="date" class="form-label">Date of Birth</label>
-            <div id="date">
-                <input type="number" name="DOB-day" class="date__field form-control" placeholder="DD" required>
-                <input type="number" name="DOB-month" class="date__field form-control" placeholder="MM" required>
-                <input type="number" name="DOB-year" class="date__field form-control" placeholder="YYYY" required>
+            <div class="mb-3">
+                <label for="sign-up__user-name" class="form-label">User Name:</label>
+                <input type="text" name="username" class="form-control" id="sign-up__user-name" placeholder="Your username...." required>
+                <div class="noti-warning noti-username-exists" style="display: none;">(*) Username already exists !!!</div>
             </div>
-            <div class="noti-warning noti-date-invalid" style="display: none;">(*) Invalid Date !!!</div>
-        </div>
-        <div class="mb-3">
-            <label for="sign-up__email" class="form-label">Email:</label>
-            <input type="email" name="email" class="form-control" id="sign-up__email" placeholder="Your email..." required>
-        </div>
-        <div class="mb-3">
-            <label for="sign-up__phone" class="form-label">Phone Number:</label>
-            <input type="number" name="phone" class="form-control" id="sign-up__phone" placeholder="Your phone number..." required>
-        </div>
-        
+            <div class="mb-3">
+                <label for="password" class="form-label">Password:</label>
+                <input type="password" name="password" class="form-control" id="sign-up__password" placeholder="Your password...." required>
+            </div>
+            <div class="mb-3">
+                <label for="confirm-password" class="form-label">Confirm Password:</label>
+                <input type="password" name="confirm-password" class="form-control" id="sign-up__confirm-password" placeholder="Confirm your password...." required>
+                <div class="noti-warning noti-password-unmatched" style="display: none;">(*) Confirmed password unmatched !!!</div>
+            </div>
+            <div class="mb-3">
+                <label for="full-name" class="form-label">Full name:</label>
+                <input type="text" name="name" class="form-control" id="full-name" placeholder="Your full name...." required>
+            </div>
+            <div class="mb-3">
+                <label for="date" class="form-label">Date of Birth</label>
+                <div id="date">
+                    <input type="number" name="DOB-day" class="date__field form-control" placeholder="DD" required>
+                    <input type="number" name="DOB-month" class="date__field form-control" placeholder="MM" required>
+                    <input type="number" name="DOB-year" class="date__field form-control" placeholder="YYYY" required>
+                </div>
+                <div class="noti-warning noti-date-invalid" style="display: none;">(*) Invalid Date !!!</div>
+            </div>
+            <div class="mb-3">
+                <label for="sign-up__email" class="form-label">Email:</label>
+                <input type="email" name="email" class="form-control" id="sign-up__email" placeholder="Your email..." required>
+            </div>
+            <div class="mb-3">
+                <label for="sign-up__phone" class="form-label">Phone Number:</label>
+                <input type="number" name="phone" class="form-control" id="sign-up__phone" placeholder="Your phone number..." required>
+            </div>
         </div>
         <div class="modal-footer">
         <button type="button" class="btn btn-secondary btn-close-modal" data-bs-dismiss="modal">Close</button>

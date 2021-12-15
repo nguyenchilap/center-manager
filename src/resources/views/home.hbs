@@ -1,6 +1,5 @@
 <div id="main-body" class="container">
-        {{#if notiMessage}}
-        <div class="modal modal-noti-message" tabindex="-1" style="display: block;">
+        <div class="modal modal-noti-message" tabindex="-1" style="display: none; z-index: 10;">
           <div class="modal-dialog">
             <div class="modal-content">
               <div class="modal-header">
@@ -8,7 +7,7 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
               </div>
               <div class="modal-body">
-                {{removePercent notiMessage}}
+                
               </div>
               <div class="modal-footer">
                 <button type="button" class="btn btn-secondary btn-modal-noti-close">Close</button>
@@ -16,7 +15,6 @@
             </div>
           </div>
         </div>
-        {{/if}}
 
 
         <div id="slider" class="carousel slide" data-bs-ride="carousel">

@@ -5,6 +5,8 @@ const {mongooseToObject, multiMongooseToObject} = require('../../utils/mongoose'
 
 const siteRepo = require('../Repository/SiteRepository');
 const passport = require('../../config/passport');
+const bcrypt = require('bcryptjs');
+const {getTransporterForOtp} = require('../../utils/nodemailer');
 
 class SiteController{
 
@@ -50,6 +52,30 @@ class SiteController{
         .then((student) => {
             if (student) res.json({exists: true});
             else res.json({exists: false});
+        })
+        .catch(next);
+    }
+
+    // [POST] /send-otp
+    async sendOtp(req, res, next){
+        const otp = Math.floor(Math.random() * (9999 - 1000 + 1) + 1000);
+        const transporter = getTransporterForOtp('nguyenchilapk18@gmail.com', 'Lapboy20');
+        const mailOption = await siteRepo.getMailforOtp(req.body.username, otp);
+        transporter.sendMail(mailOption, function(err, info){
+            if (err) next(err);
+            else res.json({otp: otp});
+        })
+    }
+
+    // [POST] /change-password
+    changePassword(req, res, next){
+        const username = req.body.username;
+        const password = bcrypt.hashSync(req.body.password, 10);
+        Student.updateOne({'account.username': username}, {'account.password': password})
+        .then(() => {
+            res.json({
+                notiMessage :'Password had changed successfully !!!',
+            })
         })
         .catch(next);
     }

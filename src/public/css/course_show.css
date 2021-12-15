@@ -10,6 +10,12 @@
   to {
     opacity: var(--opc); } }
 
+@keyframes growthOver {
+  from {
+    transform: scale(1); }
+  to {
+    transform: scale(var(--new-size)); } }
+
 @keyframes growthDown {
   0% {
     transform: scaleY(0); }

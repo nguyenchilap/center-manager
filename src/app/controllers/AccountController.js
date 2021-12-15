@@ -7,7 +7,9 @@ class AccountController{
     signup(req, res, next){
         const student = accountRepo.modifyStudent(req.body);
         student.save()
-        .then(() => res.redirect('/?notiMessage=Đăng kí thành công!!!'))
+        .then(() => res.json({
+            notiMessage: "Sign up successfully !!!"
+        }))
         .catch(next);
     }
 }
