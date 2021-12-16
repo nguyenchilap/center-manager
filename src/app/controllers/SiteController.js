@@ -79,6 +79,16 @@ class SiteController{
         })
         .catch(next);
     }
+
+    // [POST] /sort-course
+    sortCourse(req, res, next){
+        Course.find({})
+        .sort({
+            [req.body.field] : req.body.type,
+        })
+        .then((courses) => res.json(multiMongooseToObject(courses)))
+        .catch(next);
+    }
 }
 
 module.exports = new SiteController();

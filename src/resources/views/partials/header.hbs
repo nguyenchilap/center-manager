@@ -25,7 +25,8 @@
                         </a>
                         <ul class="dropdown-menu dropdown-menu-dark user__drop-down" aria-labelledby="navbarDarkDropdownMenuLink">
                             <li><a class="dropdown-item user__drop-down-item" href="/me/courses">Khóa học của tôi</a></li>
-                            <li><a class="dropdown-item user__drop-down-item" href="/me/account">Cài đặt tài khoản</a></li>
+                            <li><a class="dropdown-item user__drop-down-item" href="/me/account">Cài đặt thông tin</a></li>
+                            <li><a class="dropdown-item user__drop-down-item" href="/me/change-password">Đổi mật khẩu</a></li>
                             <li><hr class="dropdown-divider"></li>
                             <li>
                                 <button type="submit" class="dropdown-item user__drop-down-item"
@@ -175,7 +176,7 @@
 
 <script>
         $('.btn-confirm-sign-out').click(function(){
-            $('form[name="logOut"]').submit();
+            window.location.href = '/logout';
         })
 </script>
 <script src="/js/handle-navbar.js"></script>

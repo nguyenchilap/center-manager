@@ -26,6 +26,7 @@ const CourseSchema = new Schema({
             rate: {type: Number},
             registerAt: {type: Date, default: Date.now()}
         }],
+    rated: {type: Number, default: 0},
     createBy: {type: Schema.Types.ObjectId, ref:'Manager'},
 }, {
     timestamps: true,

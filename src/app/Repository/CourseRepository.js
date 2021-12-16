@@ -13,7 +13,6 @@ class CourseRepository {
 
         return Promise.all([Student.find({_id: {$in: commentAccountIds}}), Student.find({_id: {$in: registerAccountIds}})])
         .then(([commentedStudents, registeredStudents]) => {
-            console.log(course);
             const commentedStudentObjects = multiMongooseToObject(commentedStudents);
             const registeredStudentObjects = multiMongooseToObject(registeredStudents);
             
@@ -50,6 +49,32 @@ class CourseRepository {
             course.courseStudents.splice(indexOfStudent, 1);
         }
         return course;
+    }
+
+    rateCourse(course, studentId, rate){
+        const student = course.courseStudents.find(courseStudent => courseStudent.studentId.toString() === studentId.toString());
+        const indexOfStudent = course.courseStudents.indexOf(student);
+        let accumulator = 0;
+        let rateCount = 0;
+
+        course.courseStudents[indexOfStudent].rate = Number(rate);
+        
+        //calc rated
+        course.courseStudents.forEach(courseStudent => {
+            if (courseStudent.rate) {
+                accumulator = (accumulator*rateCount + courseStudent.rate)/(rateCount + 1);
+                rateCount += 1;
+            }
+        });
+        course.rated = Math.round(accumulator*10)/10;
+    }
+
+    findLastCommentId(course, studentId){
+        for(let i = course.courseComments.length - 1; i >= 0; i--){
+            console.log(course.courseComments[i]._id.toString(), studentId);
+            if (course.courseComments[i].studentId.toString() === studentId)
+            return course.courseComments[i]._id.toString();
+        }
     }
 }
 

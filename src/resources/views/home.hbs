@@ -58,7 +58,7 @@
                         <input class="form-control" type="search" placeholder="Nhập tên khóa học...." aria-label="Search">
                       </div>
                     </div>
-                    <div class="col-3">
+                    <div class="col-2">
                       <div class="dropdown course-filter-type">
                         <button class="btn btn-secondary dropdown-toggle" type="button" id="course-list__filter" data-bs-toggle="dropdown" aria-expanded="false">
                             Loại khóa học
@@ -75,7 +75,7 @@
                       </div>
                     </div>
                     
-                    <div class="col-3">
+                    <div class="col-2">
                       <div class="dropdown course-filter-level">
                         <button class="btn btn-secondary dropdown-toggle" type="button" id="course-list__filter" data-bs-toggle="dropdown" aria-expanded="false">
                             Trình độ
@@ -86,6 +86,18 @@
                           <li><div class="dropdown-item course-filter-level-item">Nâng cao</div></li>
                           <li><hr class="dropdown-divider"></li>
                           <li><div class="dropdown-item course-filter-level-item active">Tất cả</div></li>
+                        </ul>
+                      </div>
+                    </div>
+
+                    <div class="col-2">
+                      <div class="dropdown course-sort">
+                        <button class="btn btn-secondary dropdown-toggle" type="button" id="course-list__filter" data-bs-toggle="dropdown" aria-expanded="false">
+                            Sắp xếp
+                        </button>
+                        <ul class="dropdown-menu dropdown-menu-dark course-list__dropdown-list" aria-labelledby="course-list__filter">
+                          <li><div class="dropdown-item course-sort-item" value="rated" type="asc">Sao tăng dần</div></li>
+                          <li><div class="dropdown-item course-sort-item" value="rated" type="desc">Sao giảm dần</div></li>
                         </ul>
                       </div>
                     </div>
@@ -100,20 +112,23 @@
                                                         courseLevel="{{this.level}}" 
                                                         courseType="{{#each this.courseTypes as |type|}}{{#if type}}{{type}} {{/if}}{{/each}}">
                     <div class="course-item card mt-5">
-                        <a style="background-image: url({{this.img}});" href="/courses/show/{{this._id}}" target="_blank" class="card-img-top course-item__img" alt="course-img">
+                        <a style="background-image: url({{this.img}});" href="/courses/show/{{this._id}}" class="card-img-top course-item__img" alt="course-img">
                             <div class="course-item__button-view">MORE DETAILS</div>
                         </a>
                         <div class="card-body course-item__body">
                           <h3 class="card-title course-item__title">{{this.name}}</h3>
                           <div class="card-text course-item__date">Ngày: {{modifyDate this.createdAt}}</div>
                           <p class="card-text course-item__description mt-3">{{this.description}}</p>
-                          <div class="card-text course-item__rate">
-                              <i class="fas fa-star course-item__rating active"></i>
+                          <div class="card-text d-flex align-items-center course-item__features">
+                              <i class="fas fa-star course-item__rating active features-icon"></i>
                               {{#if this.rated}}
-                                  <div class="course-item__rate-num">{{this.rated}}</div>
+                                  <div class="course-item__rate-num features-num features-num-star">{{this.rated}}</div>
                               {{else}}
-                                  <div class="course-item__rate-num">Chưa có đánh giá</div>
+                                  <div class="course-item__rate-num features-num features-num-star">0</div>
                               {{/if}}
+
+                              <i class="fas fa-user-friends features-icon" style="margin-top: 2px"></i>
+                              <div class="course-item__students-num features-num features-num-students">{{this.courseStudents.length}}</div>
                           </div>
                           <p class="card-text course-item__price">{{this.price}} đ</p>
                           <div class="course-item__button ms-auto">

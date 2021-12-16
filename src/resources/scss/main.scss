@@ -246,23 +246,24 @@ body{
     font-size: 1.2rem;
 }
 
-.course-item__rate{
-    font-size: 1.2rem;
-    display: flex;
-    align-items: center;
+.course-item__features{
+    font-size: 1.3rem;
+}
+
+.features-icon{
+    margin-right: 6px;
+}
+
+.features-num{
+    margin-right: 16px;
 }
 
 .course-item__rating{
-    margin-right: 6px;
     color: rgb(110, 110, 110);
 }
 
 .course-item__rating.active{
     color: var(--star-color);
-}
-
-.course-item__rate-num{
-    font-size: 1.6rem
 }
 
 .course-item__price{

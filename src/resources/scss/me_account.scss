@@ -129,3 +129,13 @@
     display: none;
     animation: btnPushDown ease .4s;
 }
+
+
+.customize__body.customize-pasword{
+    padding: unset;
+    width: 300px;
+}
+
+.customize__title.customize-pasword{
+    min-height: 100px;
+}

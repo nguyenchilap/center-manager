@@ -9,6 +9,8 @@ router.post('/rate/:courseId/:studentId', courseController.rate);
 router.post('/register/:courseId/:studentId', courseController.register);
 router.post('/de-register/:courseId/:studentId', courseController.deRegister);
 
+router.post('/show/:id/delete-comment', courseController.deleteComment);
+router.post('/show/:id/edit-comment', courseController.editComment);
 router.post('/show/:id/push-comment', courseController.pushComment);
 router.get('/show/:id', courseController.show);
 

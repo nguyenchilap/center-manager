@@ -130,6 +130,7 @@
     margin-left: -8px;
     padding: 8px 0 12px 8px;
     border-radius: 10px;
+    animation: fadeIn ease-in 0.6s;
 }
 
 .course-comments__item:hover{
@@ -172,23 +173,77 @@
     outline: none;
 }
 
+.btn-confirm-edit-comment,
 .btn-edit-comment{
     margin-left: auto;
     padding: 28px 16px;
     cursor: pointer;
+    position: relative;
 }
+
+.btn-del-comment::after,
+.btn-confirm-edit-comment::after,
+.btn-cancel-edit-comment::after,
+.btn-edit-comment::after{
+    content: "";
+    display: none;
+    width: 50px;
+    height: 50px;
+    position: absolute;
+    border-radius: 50%;
+    top: 16%;
+    left: 0;
+}
+
+.btn-confirm-edit-comment::after{
+    background-color: #00ff4c4d;
+}
+
+.btn-edit-comment::after{
+    background-color: #9a75e24d;
+}
+
+.btn-del-comment::after,
+.btn-cancel-edit-comment::after{
+    background-color: #fd07074d;
+    left: -1px;
+}
+
 
 .btn-edit-comment:hover{
-    color: #9a75e2;
+    color: #5d1be2;
 }
 
+.btn-del-comment:hover::after,
+.btn-confirm-edit-comment:hover::after,
+.btn-cancel-edit-comment:hover::after,
+.btn-edit-comment:hover::after{
+    display: block;
+    animation: growthUp ease-in-out 0.2s, growthUp 0.2s;
+}
+
+.btn-confirm-edit-comment:hover{
+    color: #038a2cc5;
+}
+
+.btn-cancel-edit-comment,
 .btn-del-comment{
     padding: 28px 16px;
     cursor: pointer;
+    position: relative;
 }
 
+.btn-cancel-edit-comment:hover,
 .btn-del-comment:hover{
-    color: rgb(160, 0, 0);
+    color: rgb(253, 1, 1);
+}
+
+input[name="edit-comment"]{
+    background-color: unset;
+    outline: none;
+    border: none;
+    border-bottom: 2px solid #585656;
+    color: var(--text-color);
 }
 
 

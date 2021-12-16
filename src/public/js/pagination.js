@@ -35,7 +35,7 @@ document.addEventListener('DOMContentLoaded', function(){
     function renderCourses(courseArray){
         $('.course-item-wrapper').removeClass('active');
         const factor = (Number($('.page-number.active').children('.page-link').html()));
-        for(let i = 0 + MAX_ITEM_PER_PAGE * (factor - 1) ; (i < MAX_ITEM_PER_PAGE * factor && i < courseItems.length) ; i++){
+        for(let i = 0 + MAX_ITEM_PER_PAGE * (factor - 1) ; (i < MAX_ITEM_PER_PAGE * factor && i < courseArray.length) ; i++){
             courseArray[i].classList.add('active');
         }
     }
@@ -89,51 +89,112 @@ document.addEventListener('DOMContentLoaded', function(){
         })
     }
 
-
     //COURSES FILTER
-    filterCourse = (keyword, field) => {
-        courseItems = [];
+    checkKeyInCourseField = (keyword, courseField) => {
+        if (courseField.includes(keyword.toUpperCase())){
+            return true;
+        } 
+        return false;
+    }
+
+    filterCourse = (courseItems, keywordName, keywordType, keywordLevel) => {
         courseItemsOriginal.forEach(courseItem => {
-            const courseName = courseItem.getAttribute(field).toUpperCase();
-            if (courseName.includes(keyword.toUpperCase())) courseItems.push(courseItem);
+            const courseName = courseItem.getAttribute('courseName').toUpperCase();
+            const courseType = courseItem.getAttribute('courseType').toUpperCase();
+            const courseLevel = courseItem.getAttribute('courseLevel').toUpperCase();
+
+            if (checkKeyInCourseField(keywordName, courseName) && checkKeyInCourseField(keywordType, courseType) && checkKeyInCourseField(keywordLevel, courseLevel)){
+                courseItems.push(courseItem);
+            }
+            
         });
+
+        return courseItems;
+    }
+
+    renderFilteredCourse = () => {
+        $('.course-filter-level-item.active').removeClass('active');
+        courseItems = [];
+        const keywordName = $('input[type="search"]').val();
+        const keywordType = $('.course-filter-type button').html().includes('Loại khóa học') ? '' : $('.course-filter-type button').html();
+        const keywordLevel = $('.course-filter-level button').html().includes('Trình độ') ? '' : $('.course-filter-level button').html();
+
+        courseItems = filterCourse(courseItems, keywordName, keywordType, keywordLevel);
+
         maxPage = courseItems.length >= MAX_ITEM_PER_PAGE ? Math.ceil(courseItems.length/ MAX_ITEM_PER_PAGE) : 1;
         btnListPageNum.html('');
         renderNumPages(); 
         renderCourses(courseItems);
     }
 
-    //SEARCH BY COURSE NAME
-    $('input[type="search"]').keyup(function(){
-        filterCourse($(this).val(), 'courseName');
-    });
+    //COURSE SORT
 
-    //FILTER LEVEL DROPDOWN
-    $('.course-filter-level-item').click(function(){
-        $('.course-filter-level-item.active').removeClass('active');      
-        $(this).addClass('active');
+    getCourseFeatureNum = (courseItem, field) => {
+        return Number(courseItem.querySelector(`.features-num-${field}`).innerHTML);
+    }
 
-        if ($(this).html() === 'Tất cả'){
-            $('.course-filter-level button').html('Trình độ');
-            filterCourse('', 'courseLevel');
+    sortCourse = (field, type) => {
+        if (type == 'asc')
+            return Array.from(courseItems).sort(function(a, b){
+                return getCourseFeatureNum(a, field) - getCourseFeatureNum(b, field);
+            })
+        else if (type == 'desc'){
+            return Array.from(courseItems).sort(function(a, b){
+                return getCourseFeatureNum(b, field) - getCourseFeatureNum(a, field);
+            })
         }
-        else {
-            $('.course-filter-level button').html($(this).html());
-            filterCourse($(this).html(), 'courseLevel');
-        }
-    })
 
-    $('.course-filter-type-item').click(function(){
-        $('.course-filter-type-item.active').removeClass('active');      
-        $(this).addClass('active');
+    }
 
-        if ($(this).html() === 'Tất cả'){
-            $('.course-filter-type button').html('Loại khóa học');
-            filterCourse('', 'courseType');
-        }
-        else {
-            $('.course-filter-type button').html($(this).html());
-            filterCourse($(this).html(), 'courseType');
-        }
-    })
+
+    handleEvents = () => {
+        //SEARCH BY COURSE NAME
+        $('input[type="search"]').keyup(function(){
+            renderFilteredCourse();
+        });
+    
+        //FILTER LEVEL DROPDOWN
+        $('.course-filter-level-item').click(function(){
+            $('.course-filter-level-item.active').removeClass('active');      
+            $(this).addClass('active');
+    
+            if ($(this).html() === 'Tất cả'){
+                $('.course-filter-level button').html('Trình độ');
+            }
+            else  $('.course-filter-level button').html($(this).html());
+    
+            renderFilteredCourse();
+        })
+    
+        //FILTER TYPE DROPDOWN
+        $('.course-filter-type-item').click(function(){
+            $('.course-filter-type-item.active').removeClass('active');      
+            $(this).addClass('active');
+    
+            if ($(this).html() === 'Tất cả'){
+                $('.course-filter-type button').html('Loại khóa học');
+            }
+            else $('.course-filter-type button').html($(this).html());
+            
+            renderFilteredCourse();
+        })
+    
+        //SORT
+        $('.course-sort-item').click(function(){
+            $('.course-sort button').html($(this).html());
+            const field = $(this).attr('value');
+            const type = $(this).attr('type');
+
+            $.post('/sort-course', {
+                field,
+                type
+            }, function(courses){
+                courseItem = courses;
+                renderFilteredCourse();
+            })
+        })
+    }
+
+    handleEvents();
+
 })

@@ -6,7 +6,7 @@ const {mongooseToObject, multiMongooseToObject} = require('../../utils/mongoose'
 const {uploadStudentImage} = require('../../config/firebase');
 
 const meRepo = require('../Repository/MeRepository');
-
+const bcrypt = require('bcryptjs');
 
 class MeController{
 
@@ -62,6 +62,34 @@ class MeController{
                 maxItemPerPage: 6,
             });
         })
+        .catch(next);
+    }
+
+    // [GET] /me/change-password
+    showChangePassword(req, res, next){
+        Student.findOne({_id: req.user._id})
+        .then((student) => res.render('me/change-password', {
+            user: mongooseToObject(student)
+        }))
+        .catch(next);
+    }
+
+    // [POST] /me/change-password
+    changePassword(req, res, next){
+        Student.findOne({_id: req.user._id})
+        .then(student => {
+            if (!bcrypt.compareSync(req.body.password, student.account.password)) 
+                res.json({notiMessage: 'Unmatched current password !!!! Try again !!!'});
+            else{
+                const hashedPassword = bcrypt.hashSync(req.body.confirmPassword, 10);
+                Student.updateOne({_id: req.user._id}, {'account.password': hashedPassword})
+                .then(() => res.json({
+                    notiMessage: 'Password changed successfully !!! You are about to logged out!!!',
+                    success: 1
+                }))
+                .catch(next);
+            }
+        })  
         .catch(next);
     }
 }

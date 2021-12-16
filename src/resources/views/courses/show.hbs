@@ -90,6 +90,7 @@
                         <button class="btn btn-primary disabled">BÌNH LUẬN</button>
                         {{/if}}
                     </div>
+                    <div class="noti-warning noti-comment" style="display: none;">(*) Bình luận không được trống !!!</div>
                 </div>
                 <div class="row panel course-comments__items-wrapper">
                     {{#each course.courseComments}}
@@ -102,18 +103,25 @@
                                 <div class="course-comments__item-content__name">
                                     {{this.studentName}}
                                 </div>
-                                <div class="course-comments__item-content__text">
-                                    {{this.comment}}
-                                </div>
-                                <div class="course-comments__item-content__time">
+
+                                <div class="course-comments__item-content__text cmt-{{this._id}}">{{this.comment}}</div>
+                                <input type="text" name="edit-comment" style="display: none;"
+                                class="course-comments__item-content__edit edit-cmt-{{this._id}}"/>
+                                <div class="noti-warning noti-edit-{{this._id}}" style="display: none;">(*) Invalid comment !!!</div>
+
+                                <div class="course-comments__item-content__time time-cmt-{{this._id}}">
                                     At: {{modifyDateTime this.commentAt}}
                                 </div>
                             </div>
                         </div>
                         {{#if (checkEqualValues this.studentId ../user._id)}}
-                        <div class="col-3 d-flex align-items-center ms-auto">
-                            <i class="fas fa-pen btn-edit-comment"></i>
-                            <i class="fas fa-trash-alt btn-del-comment"></i>
+                        <div class="col-3 align-items-center ms-auto d-flex">
+                            <i class="fas fa-pen btn-edit-comment {{this._id}}" serial="{{this._id}}"></i>
+                            <i class="fas fa-trash-alt btn-del-comment {{this._id}}" serial="{{this._id}}"
+                            data-bs-toggle="modal" data-bs-target="#commentConfirmModal"></i>
+
+                            <i class="fas fa-check btn-confirm-edit-comment {{this._id}}" serial="{{this._id}}" style="display:none;"></i>
+                            <i class="fas fa-window-close btn-cancel-edit-comment {{this._id}}" serial="{{this._id}}" style="display:none;"></i>
                         </div>
                         {{/if}}
                     </div>
@@ -196,6 +204,25 @@
         </div>
     </div>
 </form>
+
+<div class="modal modal-confirm-handle-comment" id="commentConfirmModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" action="/courses/rate/{{course._id}}/{{user._id}}" method="POST">
+    <input name="rate" style="display: none;"/>
+    <div class="modal-dialog">
+        <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title"></h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <p></p>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-light btn-close-confirm-hanlde" data-bs-dismiss="modal">Đóng</button>
+            <button type="submit" class="btn btn-success btn-confirm-handle-comment">Tiếp tục</button>
+        </div>
+        </div>
+    </div>
+</div>
 
 <form method="POST" name="register-course" action="/courses/register/{{course._id}}/{{user._id}}" style="display: none;" >
 </form>

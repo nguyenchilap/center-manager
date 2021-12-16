@@ -1,5 +1,6 @@
 const Course = require('../models/Course');
 const Student = require('../models/Student');
+const ObjectId = require('mongoose').Types.ObjectId; 
 
 const {mongooseToObject, multiMongooseToObject} = require('../../utils/mongoose');
 const courseRepo = require('../Repository/CourseRepository');
@@ -34,12 +35,47 @@ class CourseController{
                     comment: req.body.comment,
                 }
             }
-        }, function(error){
-            res.json({
-                name: req.body.studentName,
-                comment : req.body.comment,
+        })
+        .then(() => {
+            Course.findOne({_id: req.params.id})
+            .then((course) => {
+                res.json({
+                    name: req.body.studentName,
+                    comment: req.body.comment,
+                    commentId: courseRepo.findLastCommentId(course, req.body.studentId)
+                });
             });
         })
+    }
+
+    //[POST] /courses/show/:id/delete-comment
+    deleteComment(req, res, next){
+        Course.updateOne({_id: req.params.id}, {
+            $pull: {
+                courseComments: {
+                    _id: req.body.commentId
+                }
+            }
+        })
+        .then(() => res.json({success: 1}))
+        .catch(next);
+    }
+
+    //[POST] /courses/show/:id/edit-comment
+    editComment(req, res, next){
+        Course.updateOne({_id: req.params.id, 'courseComments._id': req.body.commentId}, 
+        {
+            $set: {
+                'courseComments.$.comment': req.body.comment,
+                'courseComments.$.commentAt': Date.now(),
+            }
+        }, function(err){
+            res.json({
+                comment: req.body.comment,
+                success: 1,
+                err
+            })
+        })   
     }
 
     //[POST] /courses/register/:courseId/:studentId
@@ -67,16 +103,14 @@ class CourseController{
     rate(req, res, next){
         Course.findOne({_id: req.params.courseId})
         .then((course) => {
-            const student = course.courseStudents.find(courseStudent => courseStudent.studentId.toString() === req.params.studentId.toString());
-            const indexOfStudent = course.courseStudents.indexOf(student);
-            
-            course.courseStudents[indexOfStudent].rate = Number(req.body.rate);
-            Course.updateOne({_id: req.params.courseId}, {courseStudents: course.courseStudents})
+            courseRepo.rateCourse(course, req.params.studentId, req.body.rate);
+            Course.updateOne({_id: req.params.courseId}, {courseStudents: course.courseStudents, rated: course.rated})
             .then(() => res.redirect('back'))
             .catch(next);
         })
         .catch(next);
     }
+
 }
 
 module.exports = new CourseController();

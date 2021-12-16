@@ -8,7 +8,7 @@ function route(app){
     app.use('/account', accountRouter);
     app.use('/me', meRouter);
 
-    app.post('/logout', function(req, res){
+    app.get('/logout', function(req, res){
         req.logout();
         res.redirect('/');
     });
