@@ -47,8 +47,7 @@ document.addEventListener('DOMContentLoaded', function(){
                             data-bs-toggle="modal" data-bs-target="#commentConfirmModal"></i>
 
                             <i class="fas fa-check btn-confirm-edit-comment ${res.commentId}" serial="${res.commentId}" style="display:none;"></i>
-                            <i class="fas fa-window-close btn-cancel-edit-comment ${res.commentId}" serial="${res.commentId}" style="display:none;"
-                            data-bs-toggle="modal" data-bs-target="#commentConfirmModal"></i>
+                            <i class="fas fa-window-close btn-cancel-edit-comment ${res.commentId}" serial="${res.commentId}" style="display:none;"></i>
                         </div>
                     </div>`);
                 $('textarea').val('');

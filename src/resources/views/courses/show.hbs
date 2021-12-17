@@ -85,9 +85,9 @@
                         <input name="course-id" value="{{course._id}}" style="display: none;"/>
                         <input name="student-id" value="{{user._id}}" style="display: none;"/>
                         <input name="student-name" value="{{user.name}}" style="display: none;"/>
-                        <button type="submit" class="btn btn-primary btn-comment">BÌNH LUẬN</button>
+                        <button type="submit" class="btn btn-comment">BÌNH LUẬN</button>
                         {{else}}
-                        <button class="btn btn-primary disabled">BÌNH LUẬN</button>
+                        <button class="btn disabled">BÌNH LUẬN</button>
                         {{/if}}
                     </div>
                     <div class="noti-warning noti-comment" style="display: none;">(*) Bình luận không được trống !!!</div>
@@ -304,5 +304,15 @@
                 $('input[name="rate"]').attr('value', rate);
                 $('#rateConfirmModal .modal-body p').html(`Đánh giá ${rate} sao cho khóa học ?`);
             });
+
+            //enter-for-push-comment
+            $('.course-comments__input').keyup(function(e){
+                if(e.keyCode === 13) {
+                    e.preventDefault();
+                    $('.btn-comment').click();
+                    $(this).html('');
+                    $(this).css('height','auto');
+                }
+            })
         })
 </script>

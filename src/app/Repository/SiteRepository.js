@@ -34,11 +34,15 @@ class SiteRepository {
         return Student.findOne({'account.username': username})
         .then((student) => {
             return {
-                from: '"Edu Center 👻" <nguyenchilapk18@gnmail.com>', // sender address
+                from: '"🍺 Edu Center 🍺 👻" <nguyenchilapk18@gnmail.com>', // sender address
                 to: student.email, // list of receivers
                 subject: "Verify password with OTP ✔", // Subject line
                 text: "Use this OTP to create new password", // plain text body
-                html: "<h3>Your OTP:</h3>" + `<h1 style="font-weight: bold;">${otp}</h1>`, // html body
+                html: "<h3>Your OTP:</h3>" + 
+                `<div style="display: flex;">
+                    <div> ༼ つ ◕_◕ ༽つ </div>
+                    <h1 style="font-weight: bold; color: red; margin-left: 100px;">${otp}</h1>
+                </div>`, // html body
             }
         });
     }

@@ -8,7 +8,7 @@
             {{#if user}}
             <a class="navbar-page__item" href="/me/courses">MY COURSES</a>
             {{/if}}
-            <a class="navbar-page__item">TEACHERS</a>
+            <a class="navbar-page__item" href="/teachers">TEACHERS</a>
         </div>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -72,6 +72,7 @@
                 Forgot password ?
             </div>
             <div class="modal__sign-in-forgot-password">
+                <div class="noti-sended-email">An OTP had been sent to your email !</div>
                 <div class="mb-3">
                     <div>
                         <label for="otp" class="form-label noti-warning">Not receive yet ? Try again</label>
@@ -177,6 +178,10 @@
 <script>
         $('.btn-confirm-sign-out').click(function(){
             window.location.href = '/logout';
+        })
+
+        $('.btn-resend-otp').click(function(){
+            $('.noti-sended-email').html('Re-sent !! Check your email again !');
         })
 </script>
 <script src="/js/handle-navbar.js"></script>
