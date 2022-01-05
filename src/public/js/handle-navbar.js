@@ -9,6 +9,7 @@ $(document).ready(function(){
 
     //handle sign-in
     $('.modal__sign-in-btn-submit').click(function(e){
+        $('.noti-password-invalid').css('display', 'none');
         e.preventDefault();
         const inputUsername = $('.modal__sign-in input[name="username"]');
         const inputPassword = $('.modal__sign-in input[name="password"]');
@@ -20,7 +21,13 @@ $(document).ready(function(){
                 password: inputPassword.val()
             }, function(res){
                 if (res.redirect){
-                    window.location.href = res.redirect;
+                    if (res.user.banned){
+                        if (res.user.banned.login){
+                            alert('You have been banned!!!');
+                        }
+                        else window.location.href = res.redirect;
+                    }
+                    else window.location.href = res.redirect;
                 }
                 else {
                     if (res.notiMessage.includes('Username')){

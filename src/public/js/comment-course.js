@@ -14,6 +14,10 @@ document.addEventListener('DOMContentLoaded', function(){
             return;
         }
         $('.noti-comment').css('display','none');
+        if ($('.banned').html() === 'true') {
+            alert('You cannot post comment at the time !!!');
+            return;
+        }
         $.post(`/courses/show/${$('input[name ="course-id"]').attr('value')}/push-comment`,
             {
                 studentId: $('input[name ="student-id"]').attr('value'),

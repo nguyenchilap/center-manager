@@ -39,7 +39,12 @@
                         {{/if}}
                     </div>
                 </div>
-                <div class="course-info__component course-info__price">Giá: {{course.price}}đ</div>
+                <div class="course-info__component course-info__price">
+                    <span class="course-info__component-title me-2">
+                        Giá:
+                    </span>
+                    {{course.price}}đ
+                </div>
                 <div class="course-info__component course-info__register-count">
                     <div class="course-info__register-pics" maxRenderStudents="{{maxRenderStudents}}">
                         {{#each course.courseStudents}}
@@ -50,8 +55,18 @@
                         {{/if}}
                     </div>
                 </div>
-                <div class="course-info__component course-info__date">Ngày: {{modifyDate course.createdAt}}</div>
-                <div class="course-info__component course-info__description">Nội dung khóa học: {{course.description}}</div>
+                <div class="course-info__component course-info__date">
+                    <span class="course-info__component-title me-2">
+                        Ngày:
+                    </span>
+                    {{modifyDate course.createdAt}}
+                </div>
+                <div class="course-info__component course-info__description">
+                    <span class="course-info__component-title me-2">
+                        Nội dung khóa học:
+                    </span>
+                    {{course.description}}
+                </div>
                 <div class="course-info__component course-info__lessons">
                     {{!-- <div class="course-info__component course-info__lessons-title">Danh sách các bài học:</div> --}}
                     <table class="table table-dark table-striped table-hover">
@@ -72,6 +87,25 @@
                             {{/each}}
                         </tbody>
                     </table>
+                </div>
+                <div class="mt-5 mb-5 course-info__component course-info__related">
+                    <div class="course-info__component-title">Các khóa học liên quan</div>
+                    <div class="related-courses__arrows">
+                        <div class="related-courses__arrow related-courses__arrow-left">
+                            <i class="fas fa-chevron-left"></i>
+                        </div>
+                        <div class="related-courses__arrow related-courses__arrow-right">
+                            <i class="fas fa-chevron-right"></i>
+                        </div>
+                    </div>
+                    <div class="mt-5 course-info__related-courses d-flex">
+                        {{#each relatedCourses}}
+                            <a class="related-course" href="/courses/show/{{this._id}}">
+                                <div class="related-course__img" style="background-image: url({{this.img}});"></div>
+                                <div class="related-course__name mt-2">{{this.name}}</div>
+                            </a>
+                        {{/each}}
+                    </div>
                 </div>
             </div>
         </div>
@@ -228,6 +262,8 @@
 </form>
 <form method="POST" name="de-register-course" action="/courses/de-register/{{course._id}}/{{user._id}}" style="display: none;" >
 </form>
+<div class="banned">{{user.banned.comment}}</div>
+
 
 <script src="/js/comment-course.js"></script>
 
@@ -313,6 +349,18 @@
                     $(this).html('');
                     $(this).css('height','auto');
                 }
+            })
+
+            //related courses
+            const relatedCourse = $('.related-course');
+            const sizeScroll = relatedCourse.width() + 20;
+
+            $('.related-courses__arrow-left').click(function(){
+                $('.course-info__related-courses').scrollLeft($('.course-info__related-courses').scrollLeft() - sizeScroll);
+            })
+
+            $('.related-courses__arrow-right').click(function(){
+                $('.course-info__related-courses').scrollLeft($('.course-info__related-courses').scrollLeft() + sizeScroll);
             })
         })
 </script>

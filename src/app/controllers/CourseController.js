@@ -20,6 +20,7 @@ class CourseController{
                 currentStudent,
                 maxRenderStudents: 4,
                 user: mongooseToObject(student),
+                relatedCourses : await courseRepo.findRelatedCourses(mongooseToObject(course))
             })
         })
         .catch(next);

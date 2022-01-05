@@ -10,7 +10,6 @@ const db = require('./config/db');
 // Authentication Packages
 const session = require('express-session');
 const passport = require('./config/passport');
-const flash = require('connect-flash');
 
 //connect to DB
 db.connect();
@@ -24,7 +23,6 @@ app.use(
   }),
 );
 // app.use(express.json);
-app.use(flash());
 
 // override with the X-HTTP-Method-Override header in the request
 app.use(methodOverride('_method'));

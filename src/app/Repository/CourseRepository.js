@@ -1,4 +1,5 @@
 Student = require('../models/Student');
+Course = require('../models/Course');
 const ObjectId = require('mongoose').Types.ObjectId; 
 const {mongooseToObject, multiMongooseToObject} = require('../../utils/mongoose');
 
@@ -75,6 +76,30 @@ class CourseRepository {
             if (course.courseComments[i].studentId.toString() === studentId)
             return course.courseComments[i]._id.toString();
         }
+    }
+
+    findRelatedCourses(course){
+        let relatedCourses = [];
+        return Course.find({level: course.level})
+        .then(courses => {
+            const courseObjects = multiMongooseToObject(courses);
+            courseObjects.forEach(courseObject => {
+                if (courseObject._id.toString() != course._id.toString()){
+                    const type = courseObject.courseTypes;
+                    for(let i = 0; i < type.length; i++){
+                        if (course.courseTypes.indexOf(type[i]) > -1 && type[i] ){
+                            relatedCourses.push({
+                                _id: courseObject._id, 
+                                name: courseObject.name, 
+                                img: courseObject.img,
+                            })
+                            break;
+                        }
+                    }
+                }  
+            })
+            return relatedCourses;
+        })
     }
 }
 
